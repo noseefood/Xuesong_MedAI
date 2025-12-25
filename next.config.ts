@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
+
+  basePath: "/Xuesong_MedAI",
+  assetPrefix: "/Xuesong_MedAI",
+  
   images: {
     unoptimized: true,
   },
