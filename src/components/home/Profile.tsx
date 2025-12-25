@@ -327,7 +327,7 @@ export default function Profile({ author, social, features, researchInterests }:
                     Thanks for visiting! 🌍
                 </p>
                 <div className="flex justify-center items-center">
-                    <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&cl=ffffff&w=a"></script>
+                    <a href="https://mapmyvisitors.com/web/1c1gv"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&cl=ffffff" /></a>
                 </div>
             </div>
 
