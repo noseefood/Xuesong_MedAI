@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
 
   basePath: "/Xuesong_MedAI",
-  assetPrefix: "/Xuesong_MedAI/",
+  assetPrefix: "/Xuesong_MedAI",
   
   images: {
     unoptimized: true,
