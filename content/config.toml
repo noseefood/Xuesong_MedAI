@@ -8,7 +8,7 @@ last_updated = "December 25, 2025"
 name = "Xuesong Li"
 title = "PhD Student"
 institution = "Technical University of Munich"
-avatar = "/xuesong_icon.png"
+avatar = "public/xuesong_icon.png"
 
 [social]
 # Contact information (leave blank or delete to hide)
