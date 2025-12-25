@@ -17,7 +17,7 @@ email = "xuesong.li@tum.de"
 location = "Munich, Germany"
 location_url = "https://maps.app.goo.gl/SaiEwaeYTiH2qRgL8"
 location_details = [
-  "Boltzmannstraße 3,",
+  "Boltzmannstraße 3, School of CIT",
   "Technical University of Munich, Munich, Germany"
 ]
 google_scholar = "https://scholar.google.com/citations?user=ZEKz2ssAAAAJ&hl=en"
@@ -43,18 +43,6 @@ title = "Publications"
 type = "page"
 target = "publications"
 href = "/publications"
-
-[[navigation]]
-title = "Teaching"
-type = "page"
-target = "teaching"
-href = "/teaching"
-
-[[navigation]]
-title = "Awards"
-type = "page"
-target = "awards"
-href = "/awards"
 
 [[navigation]]
 title = "Services"
