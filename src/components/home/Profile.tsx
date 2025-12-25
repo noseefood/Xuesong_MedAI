@@ -328,7 +328,7 @@ export default function Profile({ author, social, features, researchInterests }:
                 </p> */}
                 <div className="flex justify-center items-center">
                     {/* <a href="https://mapmyvisitors.com/web/1c1gv"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&cl=ffffff" /></a> */}
-                    <a href='https://mapmyvisitors.com/web/1c1gv'  title='Visit tracker'><img src='https://mapmyvisitors.com/map.png?cl=ffffff&w=320&t=n&d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&co=2d78ad&ct=ffffff'/></a>
+                    <a href='https://mapmyvisitors.com/web/1c1gv'  title='Visit tracker'><img src='https://mapmyvisitors.com/map.png?cl=ffffff&w=300&t=n&d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&co=2d78ad&ct=ffffff'/></a>
                 </div>
             </div>
 
