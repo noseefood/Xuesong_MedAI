@@ -1,29 +1,29 @@
 [site]
-title = "Jiale Liu"
-description = "PhD student at the University of Example."
+title = "Xuesong Li"
+description = "PhD student at the Technical University of Munich."
 favicon = "/favicon.svg"
-last_updated = "November 18, 2025"
+last_updated = "December 25, 2025"
 
 [author]
-name = "Jiale Liu"
+name = "Xuesong Li"
 title = "PhD Student"
-institution = "University of Example"
+institution = "Technical University of Munich"
 avatar = "/bio.jpg"
 
 [social]
 # Contact information (leave blank or delete to hide)
 
-email = "john.doe@example.com"
-location = "City, Country"
-location_url = "https://maps.google.com"
+email = "xuesong.li@tum.de"
+location = "Munich, Germany"
+location_url = "https://maps.app.goo.gl/SaiEwaeYTiH2qRgL8"
 location_details = [
-  "Room 123, Science Building,",
-  "University Avenue, City, Country"
+  "Boltzmannstraße 3,",
+  "Technical University of Munich, Munich, Germany"
 ]
-google_scholar = "https://scholar.google.com"
-orcid = "https://orcid.org"
-github = "https://github.com"
-linkedin = "https://linkedin.com"
+google_scholar = "https://scholar.google.com/citations?user=ZEKz2ssAAAAJ&hl=en"
+orcid = "https://orcid.org/0009-0000-2752-6334"
+github = "https://github.com/noseefood"
+linkedin = "https://www.linkedin.com/in/xuesong-li-robo/"
 
 [features]
 # Show a like button on the about page
