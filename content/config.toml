@@ -1,14 +1,14 @@
 [site]
 title = "Xuesong Li"
 description = "PhD student at the Technical University of Munich."
-favicon = "/favicon.svg"
+favicon = "favicon.svg"
 last_updated = "December 25, 2025"
 
 [author]
 name = "Xuesong Li"
 title = "PhD Student"
 institution = "Technical University of Munich"
-avatar = "/xuesong_icon.png"
+avatar = "xuesong_icon.png"
 
 [social]
 # Contact information (leave blank or delete to hide)
