@@ -1,7 +1,7 @@
 [site]
 title = "Xuesong Li"
 description = "PhD student at the Technical University of Munich."
-favicon = "icons/ultrasound_favicon.svg"
+favicon = "icons/ultrasound_favicon.ico"
 last_updated = "December 25, 2025"
 
 [author]
