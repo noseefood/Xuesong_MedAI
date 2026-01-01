@@ -14,6 +14,8 @@ import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { Github, Linkedin, Pin } from 'lucide-react';
 import { SiteConfig } from '@/lib/config';
 
+// import { useState } from "react";
+
 // Custom ORCID icon component
 const OrcidIcon = ({ className }: { className?: string }) => (
     <svg
@@ -111,14 +113,6 @@ export default function Profile({ author, social, features, researchInterests }:
         >
             {/* Profile Image */}
             <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-                {/* <Image
-                    src={author.avatar}
-                    alt={author.name}
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover object-[32%_center]"
-                    priority
-                /> */}
                 <img
                     src={author.avatar}
                     alt={author.name}
