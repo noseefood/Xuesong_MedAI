@@ -104,6 +104,8 @@ export default function Profile({ author, social, features, researchInterests }:
         }] : []),
     ];
 
+    const [imgSrc, setImgSrc] = useState(author.avatar);
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -113,12 +115,21 @@ export default function Profile({ author, social, features, researchInterests }:
         >
             {/* Profile Image */}
             <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
-                <img
+                {/* <img
                     src={author.avatar}
                     alt={author.name}
                     width={256}
                     height={256}
                     className="w-full h-full object-cover object-[32%_center]"
+                /> */}
+                <img
+                    src={imgSrc}
+                    alt={author.name}
+                    width={256}
+                    height={256}
+                    className="w-full h-full object-cover object-[32%_center]"
+                    onMouseEnter={() => setImgSrc("icons/xuesong_icon_US.png")}
+                    onMouseLeave={() => setImgSrc(author.avatar)}
                 />
             </div>
 
