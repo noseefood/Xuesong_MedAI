@@ -104,7 +104,7 @@ export default function Profile({ author, social, features, researchInterests }:
         }] : []),
     ];
 
-    const [imgSrc, setImgSrc] = useState(author.avatar);
+    const [imgSrc, setImgSrc] = useState(author.avatar);  
 
     return (
         <motion.div
