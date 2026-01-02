@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'about' | 'publication' | 'card' | 'text';
+    type: 'about' | 'publication' | 'card' | 'text'| 'gallery' | 'study';
     title: string;
     description?: string;
 }
@@ -27,4 +27,22 @@ export interface CardItem {
 export interface CardPageConfig extends BasePageConfig {
     type: 'card';
     items: CardItem[];
+}
+
+export interface GalleryPageConfig extends BasePageConfig {
+  type: 'gallery';
+  /**
+   * Directory under /public that stores images grouped by date folders.
+   * Example: "blogs" -> /public/blogs/2025-12-25/*.jpg
+   */
+  directory: string;
+}
+
+export interface StudyPageConfig extends BasePageConfig {
+  type: 'study';
+  /**
+   * directory under /content
+   * e.g. "study" -> /content/study/*.md
+   */
+  directory: string;
 }
