@@ -1,6 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function joinUrl(...parts: string[]) {
+  return parts
+    .filter(Boolean)
+    .join("/")
+    .replace(/\/+/g, "/")
+    .replace(/\/$/, "");
+}
+
 export interface BlogGalleryImage {
   /** Public URL path starting with '/' (Next.js basePath will be applied automatically). */
   src: string;
@@ -51,7 +61,8 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
 
       const images: BlogGalleryImage[] = files.map((filename) => ({
         filename,
-        src: `/${publicDirName}/${folder}/${filename}`,
+        // src: `/${publicDirName}/${folder}/${filename}`,
+        src: `/${joinUrl(basePath, publicDirName, folder, filename)}`,
       }));
 
       return {

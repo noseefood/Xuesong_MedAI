@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
 
   basePath: "/Xuesong_MedAI",
   assetPrefix: "/Xuesong_MedAI",
+
+  env: {
+    NEXT_PUBLIC_BASE_PATH: "/Xuesong_MedAI",
+  },
   
   images: {
     unoptimized: true,
