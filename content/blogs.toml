@@ -1,4 +1,4 @@
 type = "text"
-title = "Blog"
+title = "Blogs"
 description = "A collection of my blogs."
-source = "blog.md"
+source = "blogs.md"
