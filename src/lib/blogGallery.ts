@@ -62,7 +62,9 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
       const images: BlogGalleryImage[] = files.map((filename) => ({
         filename,
         // src: `/${publicDirName}/${folder}/${filename}`,
-        src: `/${joinUrl(basePath, publicDirName, folder, filename)}`,
+        // src: `/${joinUrl(basePath, publicDirName, folder, filename)}`,
+        // src: joinUrl(basePath, publicDirName, folder, filename),
+        src: joinUrl(basePath, publicDirName, folder, encodeURIComponent(filename)),
       }));
 
       return {

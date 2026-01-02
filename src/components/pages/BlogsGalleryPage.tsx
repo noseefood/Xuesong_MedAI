@@ -186,7 +186,8 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                     <div className="relative w-full aspect-[16/10]">
                       {active && (
                         <Image
-                          src={active.src}
+                          // src={active.src}
+                          src={withBasePath(active.src)}
                           alt={active.alt}
                           fill
                           sizes="100vw"
