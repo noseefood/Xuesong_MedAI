@@ -1,4 +1,4 @@
-Nulltype = "text"
+type = "text"
 title = "Study"
 description = "A collection of my study notes."
 source = "study.md"
