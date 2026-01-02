@@ -11,6 +11,14 @@ import { cn } from '@/lib/utils';
 
 import { formatGalleryDate } from '@/lib/formatDate';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+function withBasePath(src: string) {
+  if (!BASE_PATH) return src;
+  if (src.startsWith(BASE_PATH + "/")) return src; // 避免重复加
+  return `${BASE_PATH}${src.startsWith("/") ? "" : "/"}${src}`;
+}
+
 interface BlogsGalleryPageProps {
   config: GalleryPageConfig;
   entries: BlogGalleryEntry[];
@@ -115,7 +123,8 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                       >
                         <div className="relative aspect-square">
                           <Image
-                            src={img.src}
+                            // src={img.src}
+                            src={withBasePath(img.src)}
                             alt={img.filename}
                             fill
                             sizes="(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw"
