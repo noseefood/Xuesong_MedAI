@@ -50,3 +50,9 @@ type = "page"
 target = "services"
 href = "/services"
 
+[[navigation]]
+title = "blogs"
+type = "page"
+target = "blogs"
+href = "/blogs"
+
