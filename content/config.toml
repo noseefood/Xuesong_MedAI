@@ -56,3 +56,8 @@ type = "page"
 target = "blogs"
 href = "/blogs"
 
+[[navigation]]
+title = "Study"
+type = "page"
+target = "study"
+href = "/study"
