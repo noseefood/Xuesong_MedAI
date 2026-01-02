@@ -51,7 +51,7 @@ target = "services"
 href = "/services"
 
 [[navigation]]
-title = "blogs"
+title = "Blogs"
 type = "page"
 target = "blogs"
 href = "/blogs"
