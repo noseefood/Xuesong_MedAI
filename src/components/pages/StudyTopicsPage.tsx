@@ -171,11 +171,17 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                           img: ({ src = '', alt = '' }) => (
                             // next/image helps with basePath on GitHub Pages export
                             <span className="block relative w-full h-auto">
-                              <Image
+                              {/* <Image
                                 src={src}
                                 alt={alt}
                                 width={1200}
                                 height={800}
+                                className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
+                              /> */}
+                              <img
+                                src={typeof src === 'string' ? src : URL.createObjectURL(src)}
+                                alt={alt}
+                                // className="w-full h-auto rounded-md"
                                 className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
                               />
                             </span>
