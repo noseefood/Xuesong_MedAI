@@ -1,0 +1,1 @@
+Image files must be with ratio 4:3 in PC monitor, with 16:9 in smartphone(crop).

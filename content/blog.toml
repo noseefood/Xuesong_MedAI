@@ -1,0 +1,4 @@
+type = "text"
+title = "Blog"
+description = "A collection of my blogs."
+source = "blog.md"
