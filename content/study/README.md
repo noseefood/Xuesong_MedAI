@@ -10,7 +10,7 @@ Example:
 ```md
 # Diffusion Models
 
-![thumbnail](/study-assets/diffusion/cover.png)
+![cover](/study-assets/diffusion/test1.png)
 
 Your notes...
 ```
