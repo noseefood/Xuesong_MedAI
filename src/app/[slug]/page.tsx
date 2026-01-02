@@ -5,11 +5,17 @@ import { parseBibTeX } from '@/lib/bibtexParser';
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
+import BlogsGalleryPage from '@/components/pages/BlogsGalleryPage';
+import StudyTopicsPage from '@/components/pages/StudyTopicsPage';
+import { getBlogGalleryEntries } from '@/lib/blogGallery';
+import { getStudyEntries } from '@/lib/studyIndex';
 import {
     BasePageConfig,
     PublicationPageConfig,
     TextPageConfig,
-    CardPageConfig
+    CardPageConfig,
+    GalleryPageConfig,
+    StudyPageConfig
 } from '@/types/page';
 
 import { Metadata } from 'next';
@@ -56,6 +62,12 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
             {pageConfig.type === 'card' && (
                 <CardPage config={pageConfig as CardPageConfig} />
             )}
+            {pageConfig.type === 'gallery' && (
+                <GalleryPage config={pageConfig as GalleryPageConfig} />
+            )}
+            {pageConfig.type === 'study' && (
+                <StudyPage config={pageConfig as StudyPageConfig} />
+            )}
         </div>
     );
 }
@@ -69,4 +81,14 @@ function PublicationPage({ config }: { config: PublicationPageConfig }) {
 function TextPageWrapper({ config }: { config: TextPageConfig }) {
     const content = getMarkdownContent(config.source);
     return <TextPage config={config} content={content} />;
+}
+
+function GalleryPage({ config }: { config: GalleryPageConfig }) {
+    const entries = getBlogGalleryEntries(config.directory);
+    return <BlogsGalleryPage config={config} entries={entries} />;
+}
+
+function StudyPage({ config }: { config: StudyPageConfig }) {
+    const entries = getStudyEntries(config.directory);
+    return <StudyTopicsPage config={config} entries={entries} />;
 }

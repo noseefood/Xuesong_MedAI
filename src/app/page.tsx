@@ -8,9 +8,13 @@ import News, { NewsItem } from '@/components/home/News';
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
+import BlogsGalleryPage from '@/components/pages/BlogsGalleryPage';
+import StudyTopicsPage from '@/components/pages/StudyTopicsPage';
+import { getBlogGalleryEntries } from '@/lib/blogGallery';
+import { getStudyEntries } from '@/lib/studyIndex';
 
 import { Publication } from '@/types/publication';
-import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
+import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig, GalleryPageConfig, StudyPageConfig } from '@/types/page';
 
 // Define types for section config
 interface SectionConfig {
@@ -29,7 +33,9 @@ type PageData =
   | { type: 'about', id: string, sections: SectionConfig[] }
   | { type: 'publication', id: string, config: PublicationPageConfig, publications: Publication[] }
   | { type: 'text', id: string, config: TextPageConfig, content: string }
-  | { type: 'card', id: string, config: CardPageConfig };
+  | { type: 'card', id: string, config: CardPageConfig }
+  | { type: 'gallery', id: string, config: GalleryPageConfig, entries: ReturnType<typeof getBlogGalleryEntries> }
+  | { type: 'study', id: string, config: StudyPageConfig, entries: ReturnType<typeof getStudyEntries> };
 
 export default function Home() {
   const config = getConfig();
@@ -113,6 +119,22 @@ export default function Home() {
             id: item.target,
             config: pageConfig as CardPageConfig
           } as PageData;
+        } else if (pageConfig.type === 'gallery') {
+          const gConfig = pageConfig as GalleryPageConfig;
+          return {
+            type: 'gallery',
+            id: item.target,
+            config: gConfig,
+            entries: getBlogGalleryEntries(gConfig.directory)
+          } as PageData;
+        } else if (pageConfig.type === 'study') {
+          const sConfig = pageConfig as StudyPageConfig;
+          return {
+            type: 'study',
+            id: item.target,
+            config: sConfig,
+            entries: getStudyEntries(sConfig.directory)
+          } as PageData;
         }
         return null;
       })
@@ -194,6 +216,20 @@ export default function Home() {
               {page.type === 'card' && (
                 <CardPage
                   config={page.config}
+                  embedded={true}
+                />
+              )}
+              {page.type === 'gallery' && (
+                <BlogsGalleryPage
+                  config={page.config}
+                  entries={page.entries}
+                  embedded={true}
+                />
+              )}
+              {page.type === 'study' && (
+                <StudyTopicsPage
+                  config={page.config}
+                  entries={page.entries}
                   embedded={true}
                 />
               )}

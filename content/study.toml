@@ -1,4 +1,6 @@
-type = "text"
+type = "study"
 title = "Study"
-description = "A collection of my study notes."
-source = "study.md"
+description = "Study notes grouped by topic (one markdown per topic)."
+
+# Markdown files live under: /content/study/*.md
+directory = "study"
