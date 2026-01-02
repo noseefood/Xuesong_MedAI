@@ -9,6 +9,8 @@ import { GalleryPageConfig } from '@/types/page';
 import type { BlogGalleryEntry } from '@/lib/blogGallery';
 import { cn } from '@/lib/utils';
 
+import { formatGalleryDate } from '@/lib/formatDate';
+
 interface BlogsGalleryPageProps {
   config: GalleryPageConfig;
   entries: BlogGalleryEntry[];
@@ -93,7 +95,8 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                 )}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{entry.label}</h3>
+                  {/* <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{entry.label}</h3> */}
+                  <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
                   <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
                     {entry.images.length} photo{entry.images.length === 1 ? '' : 's'}
                   </span>
