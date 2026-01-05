@@ -11,6 +11,14 @@ import { StudyPageConfig } from '@/types/page';
 import type { StudyEntry } from '@/lib/studyIndex';
 import { cn, formatDate } from '@/lib/utils';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+function withBasePath(src: string) {
+  if (!BASE_PATH) return src;
+  if (src.startsWith(BASE_PATH + "/")) return src; // 避免重复加
+  return `${BASE_PATH}${src.startsWith("/") ? "" : "/"}${src}`;
+}
+
 interface StudyTopicsPageProps {
   config: StudyPageConfig;
   entries: StudyEntry[];
@@ -87,7 +95,8 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
               <div className="flex items-start gap-4">
                 {e.thumbnail ? (
                   <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
-                    <Image src={e.thumbnail} alt={e.title} fill className="object-cover" sizes="96px" />
+                    {/* <Image src={e.thumbnail} alt={e.title} fill className="object-cover" sizes="96px" /> */}
+                    <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="96px" />
                   </div>
                 ) : (
                   <div className="w-24 h-24 shrink-0 rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/20" />
@@ -179,7 +188,8 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                                 className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
                               /> */}
                               <img
-                                src={typeof src === 'string' ? src : URL.createObjectURL(src)}
+                                // src={typeof src === 'string' ? src : URL.createObjectURL(src)}
+                                src={typeof src === 'string' ? withBasePath(src) : URL.createObjectURL(src)}
                                 alt={alt}
                                 // className="w-full h-auto rounded-md"
                                 className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
