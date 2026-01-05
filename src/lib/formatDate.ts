@@ -11,7 +11,7 @@ export function formatGalleryDate(folderName: string) {
 
   return date.toLocaleDateString('en-US', {
     month: 'short',
-    day: 'numeric',
+    // day: 'numeric',
     year: 'numeric'
   });
 }
