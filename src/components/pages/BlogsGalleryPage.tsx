@@ -222,16 +222,18 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
               </TransitionChild>
             </div>
           </div>
-          {/* Image compression notice */}
-          <div className="fixed bottom-4 right-4 z-30 max-w-xs text-right pointer-events-none">
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-snug">
-              Images on this page are <span className="font-medium">compressed previews</span>
-              <br />
-              to ensure fast web loading.
-            </p>
-          </div>
         </Dialog>
       </Transition>
+      
+      {/* Image compression notice */}
+      <div className="fixed bottom-4 right-4 z-30 max-w-xs text-right pointer-events-none">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-snug">
+          Images on this page are <span className="font-medium">compressed previews</span>
+          <br />
+          to ensure fast web loading.
+        </p>
+      </div>
+
     </motion.div>
   );
 }
