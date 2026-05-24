@@ -1,125 +1,398 @@
-<div align="center">
-  <img src="./logo.png" alt="PRISM Logo" height="100"/>
-</div>
+# Xuesong Li Academic Website
 
-# PRISM
+[中文说明](README_cn.md)
 
-**English** · [中文](README_cn.md) · [Demo](https://prism-demo.pages.dev)  · [Changelog](CHANGELOG.md)
+This repository contains a configurable academic personal website built with Next.js, Tailwind CSS, TypeScript, and static export for GitHub Pages.
 
-**If you like this project, please give it a star ⭐️**
+Most day-to-day updates do not require editing React code. Content is mainly managed through files in `content/` and images/assets in `public/`.
 
-PRISM stands for **P**ortfolio & **R**esearch **I**nterface **S**ite **M**aker. It is a modern, configurable, and high-performance personal website template built with Next.js, Tailwind CSS, and TypeScript. It is designed for researchers, developers, and academics to showcase their work, publications, and portfolio with ease.
+## Quick Start
 
-![PRISM Preview](screenshot.png)
-
-## ✨ Features
-
-*   **📄 Configuration-Driven**: Manage your entire site's content using simple `TOML`, `Markdown`, and `BibTeX` files in the `content/` directory. No code changes required for content updates!
-*   **📚 BibTeX Support**: Directly render your publications from a `.bib` file. Includes search, filtering (Year, Type), and automatic citation generation.
-*   **🎨 Modern Design**: Clean, responsive UI with a beautiful serif/sans-serif typography pairing, smooth animations (Framer Motion), and Dark Mode support.
-*   **⚡️ High Performance**: Built on Next.js 20 with Turbopack. Static export ensures blazing fast load times and easy deployment.
-*   **🔍 SEO Optimized**: Dynamic metadata generation for every page.
-*   **🧩 Dynamic Routing**: Easily add new pages by simply creating a config file.
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-*   Node.js 22 or later
-    *   **Important**: Please download and install Node.js manually from [https://nodejs.org/en/download](https://nodejs.org/en/download).
-    *   Better not to use the pre-installed version on your system, as it may be outdated or incompatible.
-*   npm, pnpm, or yarn
-
-### Installation
-
-1.  **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/xyjoey/PRISM.git
-    cd PRISM
-    ```
-
-2.  **Install dependencies:**
-
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server:**
-
-    ```bash
-    npm run dev
-    ```
-
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## 🛠️ Configuration
-
-All content lives in the `content/` directory.
-
-### 1. Global Site Config (`content/config.toml`)
-Configure your site title, author details, social links, and navigation menu here.
-
-```toml
-[site]
-title = "Your Name"
-description = "Personal website of Your Name"
-url = "https://your-website.com"
-
-[author]
-name = "Your Name"
-title = "PhD Student / Researcher"
-# ...
-
-[features]
-enable_likes = true
+```bash
+npm install
+npm run dev
 ```
 
-### 2. Homepage (`content/about.toml`)
-Customize the "About" section, "News", and "Selected Publications" on the homepage.
+Open the local site with the GitHub Pages base path:
 
-### 3. Publications (`content/publications.bib`)
-Export your publications from Google Scholar, Zotero, or Mendeley to `content/publications.bib`. PRISM automatically parses this file to generate your Publications page. Customize the display of publications by changing `selected`, `preview` and `description` keys in the bib file. 
+```text
+http://localhost:3000/Xuesong_MedAI/
+```
 
-### 4. Adding New Pages
-To add a new page (e.g., "Projects"), create a TOML file in `content/` (e.g., `content/projects.toml`) and add it to the `navigation` list in `content/config.toml`.
+Other local routes follow the same pattern:
 
-Supported page types:
-*   `text`: Renders Markdown content (Great for CVs, Bio).
-*   `card`: Renders a list of cards (Great for Projects, Awards).
-*   `publication`: Renders the full publications list with filters.
+```text
+http://localhost:3000/Xuesong_MedAI/publications/
+http://localhost:3000/Xuesong_MedAI/blogs/
+http://localhost:3000/Xuesong_MedAI/study/
+```
 
-## 📦 Deployment
+If you open `http://localhost:3000/` directly, you may see the layout but get a 404 page because this site is configured with `basePath: "/Xuesong_MedAI"` for GitHub Pages.
 
-PRISM is optimized for static deployment.
+To build the static site:
 
 ```bash
 npm run build
 ```
 
-This generates a static `out/` directory that can be hosted anywhere.
+The static output is generated in `out/`. GitHub Actions deploys it to GitHub Pages.
 
-👉 **[Read the full Deployment Guide](docs/deployment.md)** for instructions on deploying to **GitHub Pages** and **Cloudflare Pages**.
+Running `npm run dev` or `npm run build` locally does not upload anything to GitHub. Files are only uploaded after you explicitly run `git add`, `git commit`, and `git push`.
 
-## 📂 Project Structure
+## Project Layout
 
+```text
+content/                 Site content: TOML, Markdown, BibTeX
+content/study/           Study note Markdown files
+public/                  Static assets served from the site root
+public/blogs/            Blog gallery images
+public/publications/     Publication preview images
+public/study-assets/     Images used by study notes
+src/components/          React UI components
+src/lib/                 Content loading and parsing logic
+src/app/                 Next.js App Router pages
+.github/workflows/       GitHub Pages deployment workflow
 ```
-PRISM/
-├── content/              # All user-editable content (TOML, BibTeX, MD)
-├── public/               # Static assets (images, papers)
-├── src/
-│   ├── app/              # Next.js App Router
-│   ├── components/       # React components
-│   ├── lib/              # Utility functions (parsers, config loaders)
-│   └── types/            # TypeScript definitions
-├── next.config.ts        # Next.js configuration
-└── tailwind.config.ts    # Tailwind CSS configuration
+
+## Site Configuration
+
+Edit `content/config.toml`.
+
+Important fields:
+
+```toml
+[site]
+title = "Xuesong Li"
+description = "PhD student at the Technical University of Munich."
+favicon = "icons/ultrasound_favicon.ico"
+last_updated = "December 25, 2025"
+
+[author]
+name = "Xuesong Li"
+title = "PhD Student"
+institution = "Technical University of Munich"
+avatar = "icons/xuesong_icon.png"
+
+[features]
+enable_likes = true
+enable_one_page_mode = false
 ```
 
-## 🤝 Contributing
+Navigation items are also defined in `content/config.toml`. Each page must have a matching TOML file in `content/`, for example `content/blogs.toml` for `/blogs`.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Homepage Content
 
-## 📄 License
+The homepage uses `content/about.toml` to decide which sections appear.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Common section types:
+
+- `markdown`: reads a Markdown file such as `content/bio.md`
+- `publications`: shows selected publications from `content/publications.bib`
+- `list`: shows items from a TOML list such as `content/news.toml`
+
+To edit the main biography, update the Markdown file referenced by `content/about.toml`, usually `content/bio.md`.
+
+## Profile Panel
+
+Profile information comes from `content/config.toml`.
+
+Avatar images are stored under `public/icons/`.
+
+Current hover behavior:
+
+- Default avatar: `author.avatar`
+- Hover avatar: `public/icons/xuesong_icon_US.png`
+- Logic location: `src/components/home/Profile.tsx`
+
+Research interests are read from `content/about.toml` and displayed as small chips.
+
+## Publications
+
+Main files:
+
+- Page config: `content/publications.toml`
+- Publication data: `content/publications.bib`
+- Preview images: `public/publications/`
+
+To add a publication, add a BibTeX entry to `content/publications.bib`.
+
+Useful custom BibTeX fields:
+
+```bibtex
+selected={true},
+preview={speckle2self_Overview.png},
+description={Short one or two sentence summary shown in the publication list.},
+keywords={Ultrasound, Registration, Robotics},
+code={https://github.com/example/repo}
+```
+
+Preview image rules:
+
+- Put preview images in `public/publications/`
+- In BibTeX, use only the filename:
+
+```bibtex
+preview={my_preview.png}
+```
+
+The site automatically serves it as:
+
+```text
+/Xuesong_MedAI/publications/my_preview.png
+```
+
+Author markers:
+
+- `*` marks corresponding author
+- `#` marks co-first/co-author emphasis
+
+Example:
+
+```bibtex
+author={Li, Xuesong# and Someone, Else*}
+```
+
+## Blogs / Photo Gallery
+
+Main files:
+
+- Page config: `content/blogs.toml`
+- Image folders: `public/blogs/<folder-name>/`
+- Optional captions: `content/blogs.captions.toml`
+
+Folder naming:
+
+```text
+public/blogs/2025-10/
+public/blogs/2025-11/
+public/blogs/Previous/
+```
+
+Date-like folders such as `2025-11`, `2025-10`, or `2025-10-24` are sorted newest first. Non-date folders such as `Previous` appear after date folders.
+
+Supported image extensions:
+
+```text
+.png .jpg .jpeg .webp .gif
+```
+
+Extension matching is case-insensitive, so `.JPG` also works.
+
+To add blog images:
+
+1. Create or choose a folder under `public/blogs/`.
+2. Put images into that folder.
+3. Commit and push.
+
+Example:
+
+```text
+public/blogs/2026-01/IMG_0001.jpg
+public/blogs/2026-01/IMG_0002.png
+```
+
+The gallery automatically:
+
+- Groups images by folder
+- Shows the newest date folder first
+- Uses the first image in each group as a larger featured tile
+- Opens images in a lightbox
+- Supports previous/next buttons
+- Supports keyboard left/right and `Esc`
+- Supports mobile swipe in the lightbox
+
+### Blog Captions
+
+Captions are optional. If no caption is provided, the site derives a readable caption from the filename.
+
+To add or override captions, edit `content/blogs.captions.toml`:
+
+```toml
+[captions]
+"2025-10/Galaxy of hometown.jpg" = "Galaxy of hometown"
+"2025-11/Geroldsee(1).jpg" = "Geroldsee"
+```
+
+Use `folder/filename` as the key. This is safest when different folders contain files with the same name.
+
+## Study Notes
+
+Main files:
+
+- Page config: `content/study.toml`
+- Markdown notes: `content/study/*.md`
+- Optional images: `public/study-assets/`
+
+To add a study note:
+
+1. Create a Markdown file under `content/study/`.
+2. Add a first-level heading.
+3. Add content and optional images.
+
+Example:
+
+```text
+content/study/diffusion.md
+content/study/medical-imaging.md
+```
+
+Example Markdown:
+
+```markdown
+# Diffusion Models
+
+![cover](/study-assets/diffusion/cover.png)
+
+Notes and references go here.
+```
+
+Study page rules:
+
+- Each `*.md` file becomes one note.
+- The title is read from the first `# H1`; otherwise the filename is used.
+- The thumbnail is the first Markdown image in the note.
+- Clicking a note opens a reading modal.
+- Desktop view includes a lightweight notebook summary panel.
+
+Recommended image location:
+
+```text
+public/study-assets/<topic-name>/
+```
+
+Use absolute public paths in Markdown:
+
+```markdown
+![cover](/study-assets/diffusion/cover.png)
+```
+
+## Text Pages
+
+Text pages render Markdown content.
+
+Example config:
+
+```toml
+type = "text"
+title = "CV"
+description = "Academic CV"
+source = "cv.md"
+```
+
+Then create:
+
+```text
+content/cv.md
+```
+
+## Card Pages
+
+Card pages are useful for services, awards, projects, or compact lists.
+
+Example:
+
+```toml
+type = "card"
+title = "Services"
+description = "Academic and professional service."
+
+[[items]]
+title = "Reviewer"
+subtitle = "MICCAI"
+date = "2025"
+content = "Reviewed papers on medical imaging and robotics."
+tags = ["Review", "Medical Imaging"]
+```
+
+## Static Assets And Paths
+
+Files under `public/` are served from the site root.
+
+For GitHub Pages, this repository uses:
+
+```ts
+basePath: "/Xuesong_MedAI"
+assetPrefix: "/Xuesong_MedAI"
+```
+
+In content files, usually write public paths without the base path:
+
+```markdown
+![cover](/study-assets/diffusion/cover.png)
+```
+
+The app handles the GitHub Pages base path where needed.
+
+## GitHub Pages Deployment
+
+Deployment workflow:
+
+```text
+.github/workflows/deploy.yml
+```
+
+The workflow:
+
+1. Installs dependencies
+2. Runs `npm run build`
+3. Captures visual smoke screenshots
+4. Uploads the `out/` artifact
+5. Deploys to GitHub Pages
+
+The screenshot step is non-blocking. It uploads an artifact named:
+
+```text
+visual-smoke-screenshots
+```
+
+Use it to quickly inspect desktop/mobile screenshots after a build.
+
+Screenshots currently include:
+
+- Home desktop
+- Home mobile
+- Publications desktop
+- Blogs mobile
+
+## Common Update Checklist
+
+After content or asset changes:
+
+```bash
+git status
+git add .
+git commit -m "update website content"
+git push
+```
+
+Then check the GitHub Actions run and the deployed site.
+
+Before committing after local development or local builds, check:
+
+```bash
+git status
+```
+
+Do not commit generated dependency/build folders such as:
+
+```text
+node_modules/
+.next/
+out/
+```
+
+They should normally be ignored by `.gitignore`.
+
+If the deployed page looks unchanged:
+
+- Wait for the Pages deployment to finish
+- Hard refresh with `Ctrl + F5`
+- Try an incognito window
+- Check the `visual-smoke-screenshots` artifact in GitHub Actions
+
+## Notes
+
+- Do not include `/Xuesong_MedAI` manually in most Markdown image paths.
+- Blog images are discovered automatically from `public/blogs/`.
+- Publication previews should be placed in `public/publications/` and referenced by filename only.
+- Study images are best placed in `public/study-assets/` and referenced with absolute public paths.

@@ -1,135 +1,409 @@
-<div align="center">
-  <img src="./logo.png" alt="PRISM Logo" height="100"/>
-</div>
+# Xuesong Li 学术个人主页
 
-# PRISM
+[English README](README.md)
 
-[English](README.md) · **中文** · [在线演示](https://prism-demo.pages.dev) · [更新日志](CHANGELOG.md)
+这个仓库是一个基于 Next.js、Tailwind CSS、TypeScript 的学术个人主页，并通过静态导出部署到 GitHub Pages。
 
-**如果你喜欢这个项目，请给一个 Star ⭐️**
+日常维护网站内容时，通常不需要修改 React 代码。大部分内容都放在 `content/` 目录中，图片和静态资源放在 `public/` 目录中。
 
-PRISM 是 **P**ortfolio & **R**esearch **I**nterface **S**ite **M**aker（作品集与研究主页生成器）的缩写。这是一个基于 Next.js、Tailwind CSS 和 TypeScript 构建的现代化、高性能个人网站模板。
+## 快速开始
 
-PRISM 专为**研究人员、开发者和学者**量身打造，只为让你能以最优雅、最轻松的方式，向世界展示你的工作成果、学术论文和个人履历。
-
-![PRISM 预览](screenshot.png)
-
-## ✨ 核心特性
-
-*   **📄 配置驱动**：无需繁杂的代码！你只需在 `content/` 目录下编辑简单的 `TOML`、`Markdown` 和 `BibTeX` 文件即可管理全站内容。更新网站就像写文档一样简单。
-*   **📚 原生 BibTeX 支持**：直接读取你的 `.bib` 文件渲染论文列表。支持按年份、类型筛选，支持搜索，甚至还能自动生成引用格式。
-*   **🎨 现代美学设计**：干净清爽的响应式 UI，精心调配的衬线/无衬线字体排印，丝般顺滑的 Framer Motion 动画，以及完美支持深色模式。
-*   **⚡️ 极致性能体验**：基于 Next.js 20 和 Turbopack 构建。静态导出确保了闪电般的加载速度，也让部署变得前所未有的简单。
-*   **🔍 SEO 友好**：为每个页面自动动态生成元数据，让你的主页更容易被检索。
-*   **🧩 灵活的动态路由**：只需新建一个配置文件，系统会自动为你处理好路由。
-
-## 🚀 快速开始
-
-### 前置要求
-
-*   Node.js 22 或更高版本
-    *   **重要提示**：请务必前往 [https://nodejs.org/en/download](https://nodejs.org/en/download) 手动下载并安装 Node.js。
-    *   最好不要使用系统自带的包管理器安装的版本，因为它们通常较旧且可能导致兼容性问题。
-*   npm, pnpm, 或 yarn
-
-### 安装步骤
-
-1.  **克隆仓库：**
-
-    ```bash
-    git clone https://github.com/xyjoey/PRISM.git
-    cd PRISM
-    ```
-
-2.  **安装依赖：**
-
-    ```bash
-    npm install
-    ```
-
-3.  **启动开发服务器：**
-
-    ```bash
-    npm run dev
-    ```
-
-    在浏览器中打开 [http://localhost:3000](http://localhost:3000)，即可实时预览你的网站。
-
-## 🛠️ 配置指南
-
-所有的内容数据都存放在 `content/` 目录中，结构清晰，一目了然。
-
-### 1. 全局站点配置 (`content/config.toml`)
-
-在这里设置你的网站标题、作者信息、社交媒体链接以及顶部导航菜单。
-
-```toml
-[site]
-title = "你的名字"
-description = "某某某的个人主页"
-url = "https://your-website.com"
-
-[author]
-name = "你的名字"
-title = "博士生 / 研究员"
-# ... 其他信息
-
-[features]
-enable_likes = true # 是否开启点赞功能
+```bash
+# 在当前库路径下!
+npm install
+npm run dev
 ```
 
-### 2. 首页内容 (`content/about.toml`)
+本地开发时需要带上 GitHub Pages 的 base path：
 
-自定义首页的“关于我 (About)”、“最新动态 (News)”以及“精选论文 (Selected Publications)”板块。
+```text
+http://localhost:3000/Xuesong_MedAI/
+```
 
-### 3. 论文列表 (`content/publications.bib`)
+其他页面也是同样规则：
 
-直接从 Google Scholar、Zotero 或 Mendeley 导出你的论文列表到 `content/publications.bib`。PRISM 会自动解析并生成精美的论文页面。
-*   **小贴士**：你可以在 bib 文件中通过添加 `selected`, `preview` 和 `description` 字段来自定义论文的展示效果（例如是否在首页置顶、添加封面图等）。
+```text
+http://localhost:3000/Xuesong_MedAI/publications/
+http://localhost:3000/Xuesong_MedAI/blogs/
+http://localhost:3000/Xuesong_MedAI/study/
+```
 
-### 4. 添加新页面
+如果直接打开 `http://localhost:3000/`，可能会看到顶部 layout，但主体显示 404。这是因为项目为了 GitHub Pages 配置了：
 
-想增加一个“项目展示”页？很简单：
-1. 在 `content/` 下新建一个 TOML 文件（例如 `content/projects.toml`）。
-2. 在 `content/config.toml` 的 `navigation` 列表中把这个新页面加进去。
+```ts
+basePath: "/Xuesong_MedAI"
+```
 
-PRISM 支持以下几种页面类型：
-
-*   `text`: 纯文本渲染（Markdown），非常适合用来放 **个人简历 (CV)** 或 **详细介绍 (Bio)**。
-*   `card`: 卡片列表布局，适合展示 **项目 (Projects)** 或 **获奖经历 (Awards)**。
-*   `publication`: 完整的论文列表页，自带搜索和筛选器。
-
-## 📦 部署上线
-
-PRISM 针对静态部署进行了深度优化，你可以轻松将其托管在任何支持静态网站的平台上。
+构建静态网站：
 
 ```bash
 npm run build
 ```
 
-运行上述命令后，会生成一个 `out/` 目录，这就是你网站的全部静态文件。
+构建产物会生成在 `out/` 目录中，GitHub Actions 会自动部署到 GitHub Pages。
 
-👉 **[点击阅读完整的部署指南](docs/deployment_cn.md)** （包含部署到 **GitHub Pages** 和 **Cloudflare Pages** 的详细教程）。
+本地运行 `npm run dev` 或 `npm run build` 不会自动上传任何文件到 GitHub。只有你手动执行 `git add`、`git commit`、`git push` 后，改动才会上传。
 
-## 📂 项目结构概览
+## 项目结构
 
+```text
+content/                 站点内容：TOML、Markdown、BibTeX
+content/study/           Study 页面使用的 Markdown 笔记
+public/                  静态资源目录
+public/blogs/            Blog 图片墙图片
+public/publications/     论文预览图
+public/study-assets/     Study 笔记中使用的图片
+src/components/          React 组件
+src/lib/                 内容读取、解析、路径处理逻辑
+src/app/                 Next.js App Router 页面
+.github/workflows/       GitHub Pages 自动部署 workflow
 ```
-PRISM/
-├── content/              # ✨ 用户内容区 (在此编辑 TOML, BibTeX, MD 文件)
-├── public/               # 静态资源 (图片, PDF论文等)
-├── src/
-│   ├── app/              # Next.js App Router 核心逻辑
-│   ├── components/       # React 组件库
-│   ├── lib/              # 工具函数 (解析器, 配置加载器)
-│   └── types/            # TypeScript 类型定义
-├── next.config.ts        # Next.js 配置文件
-└── tailwind.config.ts    # Tailwind CSS 配置文件
+
+## 全局配置
+
+编辑 `content/config.toml`。
+
+常用字段：
+
+```toml
+[site]
+title = "Xuesong Li"
+description = "PhD student at the Technical University of Munich."
+favicon = "icons/ultrasound_favicon.ico"
+last_updated = "December 25, 2025"
+
+[author]
+name = "Xuesong Li"
+title = "PhD Student"
+institution = "Technical University of Munich"
+avatar = "icons/xuesong_icon.png"
+
+[features]
+enable_likes = true
+enable_one_page_mode = false
 ```
 
-## 🤝 参与贡献
+导航栏也在 `content/config.toml` 中配置。每个导航页面都需要有一个对应的 TOML 文件，例如 `/blogs` 对应 `content/blogs.toml`。
 
-如果你有好的想法或发现了 Bug，欢迎提交 Pull Request 或 Issue。让我们一起把 PRISM 变得更好！
+## 首页内容
 
-## 📄 开源协议
+首页由 `content/about.toml` 决定显示哪些 section。
 
-本项目遵循 MIT 开源协议 - 详情请参阅 [LICENSE](LICENSE) 文件。
+常见 section 类型：
+
+- `markdown`：读取 Markdown 文件，例如 `content/bio.md`
+- `publications`：从 `content/publications.bib` 中显示 selected publications
+- `list`：从 TOML 列表中读取内容，例如 `content/news.toml`
+
+如果要修改主页个人介绍，一般编辑 `content/about.toml` 中引用的 Markdown 文件，通常是 `content/bio.md`。
+
+## 个人信息栏
+
+个人信息来自 `content/config.toml`。
+
+头像图片放在：
+
+```text
+public/icons/
+```
+
+当前头像逻辑：
+
+- 默认头像：`author.avatar`
+- 鼠标悬停头像：`public/icons/xuesong_icon_US.png`
+- 逻辑位置：`src/components/home/Profile.tsx`
+
+Research Interests 从 `content/about.toml` 读取，并显示为小标签。
+
+## Publications / 论文页面
+
+主要文件：
+
+- 页面配置：`content/publications.toml`
+- 论文数据：`content/publications.bib`
+- 论文预览图：`public/publications/`
+
+添加论文时，把 BibTeX 条目加入 `content/publications.bib`。
+
+常用自定义字段：
+
+```bibtex
+selected={true},
+preview={speckle2self_Overview.png},
+description={Short one or two sentence summary shown in the publication list.},
+keywords={Ultrasound, Registration, Robotics},
+code={https://github.com/example/repo}
+```
+
+预览图规则：
+
+- 预览图放到 `public/publications/`
+- BibTeX 中只写文件名：
+
+```bibtex
+preview={my_preview.png}
+```
+
+网站会自动生成 GitHub Pages 下的访问路径：
+
+```text
+/Xuesong_MedAI/publications/my_preview.png
+```
+
+作者标记：
+
+- `*`：corresponding author
+- `#`：共同一作或需要强调的作者
+
+例子：
+
+```bibtex
+author={Li, Xuesong# and Someone, Else*}
+```
+
+## Blogs / 图片墙
+
+主要文件：
+
+- 页面配置：`content/blogs.toml`
+- 图片目录：`public/blogs/<folder-name>/`
+- 可选 caption：`content/blogs.captions.toml`
+
+目录命名示例：
+
+```text
+public/blogs/2025-10/
+public/blogs/2025-11/
+public/blogs/Previous/
+```
+
+类似 `2025-11`、`2025-10`、`2025-10-24` 的日期目录会按时间倒序排列。`Previous` 这类非日期目录会排在日期目录后面。
+
+支持的图片后缀：
+
+```text
+.png .jpg .jpeg .webp .gif
+```
+
+后缀判断不区分大小写，所以 `.JPG` 也可以自动读取。
+
+添加 Blog 图片：
+
+1. 在 `public/blogs/` 下创建或选择一个目录。
+2. 把图片放进去。
+3. 提交并 push。
+
+例子：
+
+```text
+public/blogs/2026-01/IMG_0001.jpg
+public/blogs/2026-01/IMG_0002.png
+```
+
+图片墙会自动：
+
+- 按文件夹分组
+- 日期文件夹按最新优先排序
+- 每组第一张图作为较大的 featured tile
+- 点击图片打开 lightbox
+- 支持上一张/下一张按钮
+- 支持键盘左右键和 `Esc`
+- 支持移动端左右滑动切换
+
+### Blog Captions
+
+Caption 是可选的。如果没有手动配置，网站会从文件名自动生成一个相对干净的标题。
+
+如需添加或覆盖 caption，编辑 `content/blogs.captions.toml`：
+
+```toml
+[captions]
+"2025-10/Galaxy of hometown.jpg" = "Galaxy of hometown"
+"2025-11/Geroldsee(1).jpg" = "Geroldsee"
+```
+
+建议使用 `folder/filename` 作为 key，这样不同文件夹中有同名图片时也不会冲突。
+
+## Study Notes / 学习笔记
+
+主要文件：
+
+- 页面配置：`content/study.toml`
+- Markdown 笔记：`content/study/*.md`
+- 可选图片：`public/study-assets/`
+
+添加 Study 笔记：
+
+1. 在 `content/study/` 下新建 Markdown 文件。
+2. 写一个一级标题。
+3. 添加正文和可选图片。
+
+例子：
+
+```text
+content/study/diffusion.md
+content/study/medical-imaging.md
+```
+
+Markdown 示例：
+
+```markdown
+# Diffusion Models
+
+![cover](/study-assets/diffusion/cover.png)
+
+Notes and references go here.
+```
+
+Study 页面规则：
+
+- 每个 `*.md` 文件生成一个 note。
+- 标题优先读取第一个 `# H1`；没有 H1 时使用文件名。
+- 缩略图自动取 Markdown 中出现的第一张图片。
+- 点击 note 会弹出阅读 modal。
+- 桌面端有一个轻量的 notebook summary panel。
+
+推荐图片存放位置：
+
+```text
+public/study-assets/<topic-name>/
+```
+
+Markdown 中建议使用 public 绝对路径：
+
+```markdown
+![cover](/study-assets/diffusion/cover.png)
+```
+
+## Text 页面
+
+Text 页面用于渲染 Markdown 内容。
+
+配置示例：
+
+```toml
+type = "text"
+title = "CV"
+description = "Academic CV"
+source = "cv.md"
+```
+
+然后创建：
+
+```text
+content/cv.md
+```
+
+## Card 页面
+
+Card 页面适合 services、awards、projects 或紧凑列表。
+
+示例：
+
+```toml
+type = "card"
+title = "Services"
+description = "Academic and professional service."
+
+[[items]]
+title = "Reviewer"
+subtitle = "MICCAI"
+date = "2025"
+content = "Reviewed papers on medical imaging and robotics."
+tags = ["Review", "Medical Imaging"]
+```
+
+## 静态资源与路径
+
+`public/` 下的文件会从网站根路径对外提供。
+
+本项目部署在 GitHub Pages 子路径下，配置为：
+
+```ts
+basePath: "/Xuesong_MedAI"
+assetPrefix: "/Xuesong_MedAI"
+```
+
+在 Markdown 或内容文件里，一般不要手动写 `/Xuesong_MedAI`。
+
+例如 Study 图片应写成：
+
+```markdown
+![cover](/study-assets/diffusion/cover.png)
+```
+
+应用会在需要的位置自动处理 GitHub Pages 的 base path。
+
+## GitHub Pages 部署
+
+部署 workflow：
+
+```text
+.github/workflows/deploy.yml
+```
+
+流程：
+
+1. 安装依赖
+2. 执行 `npm run build`
+3. 截取视觉 smoke screenshots
+4. 上传 `out/` artifact
+5. 部署到 GitHub Pages
+
+截图步骤是非阻塞的。它会上传一个 artifact：
+
+```text
+visual-smoke-screenshots
+```
+
+可以用它快速检查桌面端和移动端的构建效果。
+
+目前截图包括：
+
+- Home desktop
+- Home mobile
+- Publications desktop
+- Blogs mobile
+
+## 常用更新流程
+
+修改内容或图片后：
+
+```bash
+git status
+git add .
+git commit -m "update website content"
+git push
+```
+
+然后检查 GitHub Actions 运行结果和部署页面。
+
+本地开发或本地 build 之后，提交前建议先检查：
+
+```bash
+git status
+```
+
+不要提交这些本地依赖或构建目录：
+
+```text
+node_modules/
+.next/
+out/
+```
+
+这些目录通常已经被 `.gitignore` 忽略。
+
+如果线上页面看起来没变化：
+
+- 等 GitHub Pages 部署完成
+- 使用 `Ctrl + F5` 强制刷新
+- 用无痕窗口打开
+- 在 GitHub Actions 中下载 `visual-smoke-screenshots` artifact 检查截图
+
+## 注意事项
+
+- 大多数 Markdown 图片路径中不要手动添加 `/Xuesong_MedAI`。
+- Blog 图片会从 `public/blogs/` 自动发现。
+- Publication preview 图片放在 `public/publications/`，BibTeX 中只写文件名。
+- Study 图片建议放在 `public/study-assets/`，Markdown 中使用 public 绝对路径。
