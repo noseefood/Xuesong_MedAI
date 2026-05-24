@@ -38,7 +38,9 @@ jobs:
         continue-on-error: true
         run: |
           npx playwright@latest install --with-deps chromium
-          npx serve@latest out -l 4173 &
+          mkdir -p visual-smoke-root/Xuesong_MedAI
+          cp -R out/. visual-smoke-root/Xuesong_MedAI/
+          npx serve@latest visual-smoke-root -l 4173 &
           npx wait-on@latest http://127.0.0.1:4173/Xuesong_MedAI/
           mkdir -p screenshots
           npx playwright@latest screenshot --browser=chromium --viewport-size=1440,1100 http://127.0.0.1:4173/Xuesong_MedAI/ screenshots/home-desktop.png
