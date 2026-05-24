@@ -60,7 +60,11 @@ export function parseBibTeX(bibtexContent: string): Publication[] {
     const selected = tags.selected === 'true' || tags.selected === 'yes';
 
     // Parse preview field (remove braces if present)
-    const preview = tags.preview?.replace(/[{}]/g, '');
+    const previewFilename = tags.preview?.replace(/[{}]/g, '');
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    const preview = previewFilename
+      ? `${basePath}/publications/${encodeURIComponent(previewFilename)}`.replace(/\/+/g, '/')
+      : undefined;
 
     // Create publication object
     const publication: Publication = {

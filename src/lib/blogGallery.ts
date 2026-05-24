@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
 function joinUrl(...parts: string[]) {
-  return parts
+  const url = parts
     .filter(Boolean)
     .join("/")
     .replace(/\/+/g, "/")
     .replace(/\/$/, "");
+
+  return url.startsWith("/") ? url : `/${url}`;
 }
 
 export interface BlogGalleryImage {
@@ -26,9 +26,20 @@ export interface BlogGalleryEntry {
 }
 
 const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
+const DATE_FOLDER_RE = /^\d{4}(?:-\d{2}){0,2}$/;
 
 function isImageFile(name: string) {
   return IMAGE_EXTS.has(path.extname(name).toLowerCase());
+}
+
+function sortGalleryFolders(a: string, b: string) {
+  const aIsDate = DATE_FOLDER_RE.test(a);
+  const bIsDate = DATE_FOLDER_RE.test(b);
+
+  if (aIsDate && bIsDate) return a < b ? 1 : a > b ? -1 : 0;
+  if (aIsDate) return -1;
+  if (bIsDate) return 1;
+  return a.localeCompare(b);
 }
 
 /**
@@ -47,8 +58,7 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
     .readdirSync(dirPath, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
-    // Most users name folders by date; sorting descending gives newest first.
-    .sort((a, b) => (a < b ? 1 : a > b ? -1 : 0));
+    .sort(sortGalleryFolders);
 
   return folders
     .map((folder) => {
@@ -61,10 +71,11 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
 
       const images: BlogGalleryImage[] = files.map((filename) => ({
         filename,
-        // src: `/${publicDirName}/${folder}/${filename}`,
-        // src: `/${joinUrl(basePath, publicDirName, folder, filename)}`,
-        // src: joinUrl(basePath, publicDirName, folder, filename),
-        src: joinUrl(basePath, publicDirName, folder, encodeURIComponent(filename)),
+        src: joinUrl(
+          publicDirName,
+          encodeURIComponent(folder),
+          encodeURIComponent(filename),
+        ),
       }));
 
       return {

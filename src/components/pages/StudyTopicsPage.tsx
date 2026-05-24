@@ -11,12 +11,12 @@ import { StudyPageConfig } from '@/types/page';
 import type { StudyEntry } from '@/lib/studyIndex';
 import { cn, formatDate } from '@/lib/utils';
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 function withBasePath(src: string) {
   if (!BASE_PATH) return src;
-  if (src.startsWith(BASE_PATH + "/")) return src; // 避免重复加
-  return `${BASE_PATH}${src.startsWith("/") ? "" : "/"}${src}`;
+  if (src.startsWith(BASE_PATH + '/')) return src;
+  return `${BASE_PATH}${src.startsWith('/') ? '' : '/'}${src}`;
 }
 
 interface StudyTopicsPageProps {
@@ -67,7 +67,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search study notes…"
+            placeholder="Search study notes..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-primary placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:focus:ring-neutral-700"
           />
         </div>
@@ -95,7 +95,6 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
               <div className="flex items-start gap-4">
                 {e.thumbnail ? (
                   <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
-                    {/* <Image src={e.thumbnail} alt={e.title} fill className="object-cover" sizes="96px" /> */}
                     <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="96px" />
                   </div>
                 ) : (
@@ -178,20 +177,10 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                           strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
                           em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
                           img: ({ src = '', alt = '' }) => (
-                            // next/image helps with basePath on GitHub Pages export
                             <span className="block relative w-full h-auto">
-                              {/* <Image
-                                src={src}
-                                alt={alt}
-                                width={1200}
-                                height={800}
-                                className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
-                              /> */}
                               <img
-                                // src={typeof src === 'string' ? src : URL.createObjectURL(src)}
                                 src={typeof src === 'string' ? withBasePath(src) : URL.createObjectURL(src)}
                                 alt={alt}
-                                // className="w-full h-auto rounded-md"
                                 className="rounded-xl border border-neutral-200 dark:border-neutral-800 w-full h-auto"
                               />
                             </span>

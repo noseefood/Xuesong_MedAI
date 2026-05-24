@@ -17,14 +17,14 @@ export interface StudyEntry {
 const MD_IMAGE_RE = /!\[[^\]]*\]\(([^)]+)\)/;
 
 function extractTitle(md: string, fallback: string): string {
-  // First H1
   const h1 = md.match(/^\s*#\s+(.+)\s*$/m);
   if (h1?.[1]) return h1[1].trim();
-  // First non-empty line
+
   const line = md
     .split(/\r?\n/)
     .map((l) => l.trim())
     .find((l) => l.length > 0);
+
   if (line) return line.replace(/^#+\s*/, '').trim();
   return fallback;
 }
@@ -35,7 +35,6 @@ function extractFirstImage(md: string): string | undefined {
 }
 
 function extractExcerpt(md: string): string | undefined {
-  // Remove code fences, headings, images, links; keep a short snippet.
   const cleaned = md
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/^\s*#+\s+.*$/gm, ' ')
@@ -43,8 +42,9 @@ function extractExcerpt(md: string): string | undefined {
     .replace(/\[[^\]]+\]\([^)]+\)/g, '$1')
     .replace(/\s+/g, ' ')
     .trim();
+
   if (!cleaned) return undefined;
-  return cleaned.length > 180 ? `${cleaned.slice(0, 180)}…` : cleaned;
+  return cleaned.length > 180 ? `${cleaned.slice(0, 180)}...` : cleaned;
 }
 
 /**
@@ -78,7 +78,6 @@ export function getStudyEntries(directory: string): StudyEntry[] {
         excerpt: extractExcerpt(md),
       };
     })
-    // newest updated first
     .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0));
 
   return entries;
