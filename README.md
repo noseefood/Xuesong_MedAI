@@ -188,13 +188,22 @@ To add blog images:
 
 1. Create or choose a folder under `public/blogs/`.
 2. Put images into that folder.
-3. Commit and push.
+3. Name images with the `Place-0001.ext` pattern.
+4. Generate thumbnails under `public/blogs-thumbs/`.
+5. Commit and push.
 
 Example:
 
 ```text
-public/blogs/2026-01/IMG_0001.jpg
-public/blogs/2026-01/IMG_0002.png
+public/blogs/2026-01/Florence-0001.jpg
+public/blogs/2026-01/Florence-0002.png
+```
+
+Filename convention:
+
+```text
+Florence(1).jpg -> Florence-0001.jpg
+Florence(12).jpg -> Florence-0012.jpg
 ```
 
 The gallery automatically:
@@ -215,13 +224,13 @@ The gallery grid uses thumbnails when matching files exist under `public/blogs-t
 For a source image:
 
 ```text
-public/blogs/2025-10/Galaxy of hometown.jpg
+public/blogs/2025-10/Florence-0001.jpg
 ```
 
 the thumbnail should be:
 
 ```text
-public/blogs-thumbs/2025-10/Galaxy of hometown.webp
+public/blogs-thumbs/2025-10/Florence-0001.webp
 ```
 
 This keeps the visible gallery fast while preserving the larger image for preview.
@@ -373,10 +382,13 @@ Deployment workflow:
 The workflow:
 
 1. Installs dependencies
-2. Runs `npm run build`
-3. Captures visual smoke screenshots
-4. Uploads the `out/` artifact
-5. Deploys to GitHub Pages
+2. Sets `NEXT_PUBLIC_LAST_UPDATED` from the build date
+3. Runs `npm run build`
+4. Captures visual smoke screenshots
+5. Uploads the `out/` artifact
+6. Deploys to GitHub Pages
+
+The footer displays `NEXT_PUBLIC_LAST_UPDATED` when the site is built in GitHub Actions. If that variable is not available, it falls back to `site.last_updated` in `content/config.toml`.
 
 The screenshot step is non-blocking. It uploads an artifact named:
 

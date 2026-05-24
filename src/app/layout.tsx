@@ -36,6 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const config = getConfig();
+  const lastUpdated = process.env.NEXT_PUBLIC_LAST_UPDATED || config.site.last_updated;
 
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
@@ -107,7 +108,7 @@ export default function RootLayout({
           <main className="min-h-screen pt-16 lg:pt-20">
             {children}
           </main>
-          <Footer lastUpdated={config.site.last_updated} />
+          <Footer lastUpdated={lastUpdated} />
         </ThemeProvider>
       </body>
     </html>

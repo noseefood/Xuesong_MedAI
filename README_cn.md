@@ -197,13 +197,22 @@ public/blogs/Previous/
 
 1. 在 `public/blogs/` 下创建或选择一个目录。
 2. 把图片放进去。
-3. 提交并 push。
+3. 按 `Place-0001.ext` 的格式命名图片。
+4. 在 `public/blogs-thumbs/` 下生成对应缩略图。
+5. 提交并 push。
 
 例子：
 
 ```text
-public/blogs/2026-01/IMG_0001.jpg
-public/blogs/2026-01/IMG_0002.png
+public/blogs/2026-01/Florence-0001.jpg
+public/blogs/2026-01/Florence-0002.png
+```
+
+文件命名约定：
+
+```text
+Florence(1).jpg -> Florence-0001.jpg
+Florence(12).jpg -> Florence-0012.jpg
 ```
 
 图片墙会自动：
@@ -224,13 +233,13 @@ public/blogs/2026-01/IMG_0002.png
 例如原图：
 
 ```text
-public/blogs/2025-10/Galaxy of hometown.jpg
+public/blogs/2025-10/Florence-0001.jpg
 ```
 
 对应缩略图应为：
 
 ```text
-public/blogs-thumbs/2025-10/Galaxy of hometown.webp
+public/blogs-thumbs/2025-10/Florence-0001.webp
 ```
 
 这样页面滚动和首屏加载会明显更轻，同时仍然保留大图预览。
@@ -384,10 +393,13 @@ assetPrefix: "/Xuesong_MedAI"
 流程：
 
 1. 安装依赖
-2. 执行 `npm run build`
-3. 截取视觉 smoke screenshots
-4. 上传 `out/` artifact
-5. 部署到 GitHub Pages
+2. 根据构建当天日期设置 `NEXT_PUBLIC_LAST_UPDATED`
+3. 执行 `npm run build`
+4. 截取视觉 smoke screenshots
+5. 上传 `out/` artifact
+6. 部署到 GitHub Pages
+
+页脚会优先显示 GitHub Actions 构建时注入的 `NEXT_PUBLIC_LAST_UPDATED`。如果这个变量不存在，则回退使用 `content/config.toml` 中的 `site.last_updated`。
 
 截图步骤是非阻塞的。它会上传一个 artifact：
 
