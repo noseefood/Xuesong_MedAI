@@ -1,6 +1,7 @@
 'use client';
 
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import type { PointerEvent } from 'react';
 import Image from 'next/image';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { motion } from 'framer-motion';
@@ -11,12 +12,12 @@ import { cn } from '@/lib/utils';
 
 import { formatGalleryDate } from '@/lib/formatDate';
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 function withBasePath(src: string) {
   if (!BASE_PATH) return src;
-  if (src.startsWith(BASE_PATH + "/")) return src; // 避免重复加
-  return `${BASE_PATH}${src.startsWith("/") ? "" : "/"}${src}`;
+  if (src.startsWith(BASE_PATH + '/')) return src;
+  return `${BASE_PATH}${src.startsWith('/') ? '' : '/'}${src}`;
 }
 
 interface BlogsGalleryPageProps {
@@ -38,6 +39,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
 
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const swipeStartX = useRef<number | null>(null);
 
   const active = flat[activeIndex];
 
@@ -56,6 +58,24 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
 
   function next() {
     setActiveIndex((i) => (i + 1) % flat.length);
+  }
+
+  function handlePointerDown(e: PointerEvent<HTMLDivElement>) {
+    swipeStartX.current = e.clientX;
+  }
+
+  function handlePointerUp(e: PointerEvent<HTMLDivElement>) {
+    if (swipeStartX.current === null || flat.length <= 1) return;
+
+    const deltaX = e.clientX - swipeStartX.current;
+    swipeStartX.current = null;
+
+    if (Math.abs(deltaX) < 50) return;
+    if (deltaX > 0) {
+      prev();
+    } else {
+      next();
+    }
   }
 
   useEffect(() => {
@@ -83,6 +103,9 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
             {config.description}
           </p>
         )}
+        <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+          Images are compressed previews for faster loading.
+        </p>
       </div>
 
       {entries.length === 0 ? (
@@ -92,42 +115,43 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
       ) : (
         <div className={cn('grid', embedded ? 'gap-4' : 'gap-6')}>
           {entries.map((entry, entryIdx) => {
-            // Find starting offset for flat index mapping
             const offset = entries.slice(0, entryIdx).reduce((sum, e) => sum + e.images.length, 0);
             return (
               <div
                 key={entry.key}
                 className={cn(
-                  'bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800',
-                  embedded ? 'p-4' : 'p-6'
+                  'border-t border-neutral-200 dark:border-neutral-800',
+                  embedded ? 'pt-4' : 'pt-6'
                 )}
               >
                 <div className="flex items-center justify-between mb-4">
-                  {/* <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{entry.label}</h3> */}
                   <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
-                  <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                  <span className="text-xs text-neutral-500 font-medium border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full">
                     {entry.images.length} photo{entry.images.length === 1 ? '' : 's'}
                   </span>
                 </div>
 
-                <div className={cn('grid gap-2', 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6')}>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 auto-rows-fr">
                   {entry.images.map((img, i) => {
                     const idx = offset + i;
+                    const isFeature = i === 0 && entry.images.length > 3;
                     return (
                       <button
                         key={img.src}
                         type="button"
                         onClick={() => openAt(idx)}
-                        className="group relative overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40"
+                        className={cn(
+                          'group relative overflow-hidden rounded-md bg-neutral-50 dark:bg-neutral-800/40',
+                          isFeature && 'col-span-2 row-span-2'
+                        )}
                         aria-label={`Open image ${img.filename}`}
                       >
                         <div className="relative aspect-square">
                           <Image
-                            // src={img.src}
                             src={withBasePath(img.src)}
                             alt={img.filename}
                             fill
-                            sizes="(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw"
+                            sizes={isFeature ? '(max-width: 768px) 66vw, (max-width: 1024px) 50vw, 22vw' : '(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw'}
                             className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                           />
                         </div>
@@ -182,11 +206,17 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                     </button>
                   </div>
 
-                  <div className="relative bg-black">
+                  <div
+                    className="relative bg-black touch-pan-y select-none"
+                    onPointerDown={handlePointerDown}
+                    onPointerUp={handlePointerUp}
+                    onPointerCancel={() => {
+                      swipeStartX.current = null;
+                    }}
+                  >
                     <div className="relative w-full aspect-[16/10]">
                       {active && (
                         <Image
-                          // src={active.src}
                           src={withBasePath(active.src)}
                           alt={active.alt}
                           fill
@@ -224,16 +254,6 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
           </div>
         </Dialog>
       </Transition>
-      
-      {/* Image compression notice */}
-      <div className="fixed bottom-4 right-4 z-30 max-w-xs text-right pointer-events-none">
-        <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-snug">
-          Images on this page are <span className="font-medium">compressed previews</span>
-          <br />
-          to ensure fast web loading.
-        </p>
-      </div>
-
     </motion.div>
   );
 }

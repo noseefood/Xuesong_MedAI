@@ -63,9 +63,9 @@ export default function PublicationsList({ config, publications, embedded = fals
             transition={{ duration: 0.6, delay: 0.4 }}
         >
             <div className="mb-8">
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
+                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-3`}>{config.title}</h1>
                 {config.description && (
-                    <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl`}>
+                    <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl leading-relaxed`}>
                         {config.description}
                     </p>
                 )}
@@ -194,12 +194,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 * index }}
-                            className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
+                            className="group border-t border-neutral-200 dark:border-neutral-800 py-6 transition-colors duration-200 first:border-t-0 hover:border-accent/40"
                         >
-                            <div className="flex flex-col md:flex-row gap-6">
+                            <div className="flex flex-col md:flex-row gap-5">
                                 {pub.preview && (
-                                    <div className="w-full md:w-48 flex-shrink-0">
-                                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                                    <div className="w-full md:w-44 flex-shrink-0">
+                                        <div className="aspect-video md:aspect-[4/3] relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800 ring-1 ring-neutral-200 dark:ring-neutral-800 transition-shadow duration-200 group-hover:shadow-md">
                                             {/* <Image
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
@@ -217,7 +217,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </div>
                                 )}
                                 <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight`}>
+                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-snug`}>
                                         {pub.title}
                                     </h3>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
@@ -233,7 +233,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             </span>
                                         ))}
                                     </p>
-                                    <p className="text-sm font-medium text-neutral-800 dark:text-neutral-600 mb-3">
+                                    <p className="text-sm font-medium text-neutral-700 dark:text-neutral-500 mb-3">
                                         {pub.journal || pub.conference} {pub.year}
                                     </p>
 
@@ -249,7 +249,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={`https://doi.org/${pub.doi}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent transition-colors"
                                             >
                                                 DOI
                                             </a>
@@ -259,7 +259,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.code}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                                                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent transition-colors"
                                             >
                                                 Code
                                             </a>
@@ -268,10 +268,10 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             <button
                                                 onClick={() => setExpandedAbstractId(expandedAbstractId === pub.id ? null : pub.id)}
                                                 className={cn(
-                                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                                                    "inline-flex items-center px-2.5 py-1 rounded-full border text-xs font-medium transition-colors",
                                                     expandedAbstractId === pub.id
-                                                        ? "bg-accent text-white"
-                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
+                                                        ? "border-accent bg-accent text-white"
+                                                        : "border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent"
                                                 )}
                                             >
                                                 <DocumentTextIcon className="h-3 w-3 mr-1.5" />
@@ -282,10 +282,10 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             <button
                                                 onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
                                                 className={cn(
-                                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                                                    "inline-flex items-center px-2.5 py-1 rounded-full border text-xs font-medium transition-colors",
                                                     expandedBibtexId === pub.id
-                                                        ? "bg-accent text-white"
-                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
+                                                        ? "border-accent bg-accent text-white"
+                                                        : "border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent"
                                                 )}
                                             >
                                                 <BookOpenIcon className="h-3 w-3 mr-1.5" />

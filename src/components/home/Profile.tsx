@@ -114,7 +114,7 @@ export default function Profile({ author, social, features, researchInterests }:
             className="sticky top-8"
         >
             {/* Profile Image */}
-            <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+            <div className="w-56 h-56 mx-auto mb-6 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-sm transition-shadow duration-200 hover:shadow-md">
                 {/* <img
                     src={author.avatar}
                     alt={author.name}
@@ -134,20 +134,20 @@ export default function Profile({ author, social, features, researchInterests }:
             </div>
 
             {/* Name and Title */}
-            <div className="text-center mb-6">
-                <h1 className="text-3xl font-serif font-bold text-primary mb-2">
+            <div className="text-center mb-5">
+                <h1 className="text-3xl font-serif font-bold text-primary mb-1">
                     {author.name}
                 </h1>
-                <p className="text-lg text-accent font-medium mb-1">
+                <p className="text-base text-accent font-medium mb-1">
                     {author.title}
                 </p>
-                <p className="text-neutral-600 mb-2">
+                <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-2">
                     {author.institution}
                 </p>
             </div>
 
             {/* Contact Links */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2">
+            <div className="flex flex-wrap justify-center gap-2 mb-6 relative px-2">
                 {socialLinks.map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {
@@ -164,9 +164,9 @@ export default function Profile({ author, social, features, researchInterests }:
                                         setShowAddress(!isAddressPinned);
                                         setLastClickedTooltip('address');
                                     }}
-                                    className={`p-2 sm:p-2 transition-colors duration-200 ${isAddressPinned
-                                        ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
+                                    className={`p-2 rounded-full border transition-colors duration-200 ${isAddressPinned
+                                        ? 'text-accent border-accent/40 bg-accent/10'
+                                        : 'text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:text-accent hover:border-accent/40'
                                         }`}
                                     aria-label={link.name}
                                 >
@@ -241,9 +241,9 @@ export default function Profile({ author, social, features, researchInterests }:
                                         setShowEmail(!isEmailPinned);
                                         setLastClickedTooltip('email');
                                     }}
-                                    className={`p-2 sm:p-2 transition-colors duration-200 ${isEmailPinned
-                                        ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
+                                    className={`p-2 rounded-full border transition-colors duration-200 ${isEmailPinned
+                                        ? 'text-accent border-accent/40 bg-accent/10'
+                                        : 'text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:text-accent hover:border-accent/40'
                                         }`}
                                     aria-label={link.name}
                                 >
@@ -304,7 +304,7 @@ export default function Profile({ author, social, features, researchInterests }:
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200"
+                            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent hover:border-accent/40 transition-colors duration-200"
                             aria-label={link.name}
                         >
                             <IconComponent className="h-5 w-5" />
@@ -315,23 +315,28 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
-                    <h3 className="font-semibold text-primary mb-3">Research Interests</h3>
-                    <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
+                <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
+                    <h3 className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400 mb-3">Research Interests</h3>
+                    <div className="flex flex-wrap gap-2">
                         {researchInterests.map((interest, index) => (
-                            <div key={index}>{interest}</div>
+                            <span
+                                key={index}
+                                className="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-400"
+                            >
+                                {interest}
+                            </span>
                         ))}
                     </div>
                 </div>
             )}
 
             {/* Visitor Map - 新增部分 */}
-            <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
-                <h3 className="font-semibold text-primary mb-3">Visitor Map</h3>
+            <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
+                <h3 className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400 mb-3">Visitor Map</h3>
                 {/* <p className="text-xs text-neutral-600 dark:text-neutral-500 mb-3 text-center">
                     Thanks for visiting!
                 </p> */}
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center opacity-80 grayscale-[15%] hover:opacity-100 hover:grayscale-0 transition-all duration-200">
                     {/* <a href="https://mapmyvisitors.com/web/1c1gv"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&cl=ffffff" /></a> */}
                     <a href='https://mapmyvisitors.com/web/1c1gv'  title='Visit tracker'><img src='https://mapmyvisitors.com/map.png?cl=ffffff&w=300&t=n&d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&co=2d78ad&ct=ffffff'/></a>
                 </div>
@@ -345,9 +350,9 @@ export default function Profile({ author, social, features, researchInterests }:
                             onClick={handleLike}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${hasLiked
-                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                                : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
+                            className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border font-medium text-sm transition-all duration-200 ${hasLiked
+                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/40'
+                                : 'border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-red-200 dark:hover:border-red-900/40 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
                                 }`}
                         >
                             {hasLiked ? (
