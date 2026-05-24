@@ -15,6 +15,8 @@ function joinUrl(...parts: string[]) {
 export interface BlogGalleryImage {
   /** Public URL path starting with '/' (Next.js basePath will be applied automatically). */
   src: string;
+  /** Optional lightweight thumbnail URL. Falls back to src when missing. */
+  thumbSrc?: string;
   filename: string;
   caption: string;
 }
@@ -41,6 +43,10 @@ function getDefaultCaption(filename: string) {
     .replace(/[_-]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function getThumbFilename(filename: string) {
+  return `${path.basename(filename, path.extname(filename))}.webp`;
 }
 
 function getGalleryCaptions(publicDirName: string) {
@@ -102,6 +108,19 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
           encodeURIComponent(folder),
           encodeURIComponent(filename),
         ),
+        ...(() => {
+          const thumbFilename = getThumbFilename(filename);
+          const thumbPath = path.join(publicRoot, `${publicDirName}-thumbs`, folder, thumbFilename);
+          if (!fs.existsSync(thumbPath)) return {};
+
+          return {
+            thumbSrc: joinUrl(
+              `${publicDirName}-thumbs`,
+              encodeURIComponent(folder),
+              encodeURIComponent(thumbFilename),
+            ),
+          };
+        })(),
       }));
 
       return {

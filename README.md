@@ -163,6 +163,7 @@ Main files:
 
 - Page config: `content/blogs.toml`
 - Image folders: `public/blogs/<folder-name>/`
+- Thumbnail folders: `public/blogs-thumbs/<folder-name>/`
 - Optional captions: `content/blogs.captions.toml`
 
 Folder naming:
@@ -201,10 +202,43 @@ The gallery automatically:
 - Groups images by folder
 - Shows the newest date folder first
 - Uses the first image in each group as a larger featured tile
+- Uses lightweight thumbnails from `public/blogs-thumbs/` when available
 - Opens images in a lightbox
 - Supports previous/next buttons
 - Supports keyboard left/right and `Esc`
 - Supports mobile swipe in the lightbox
+
+### Blog Thumbnails
+
+The gallery grid uses thumbnails when matching files exist under `public/blogs-thumbs/`. The lightbox still opens the larger source image from `public/blogs/`.
+
+For a source image:
+
+```text
+public/blogs/2025-10/Galaxy of hometown.jpg
+```
+
+the thumbnail should be:
+
+```text
+public/blogs-thumbs/2025-10/Galaxy of hometown.webp
+```
+
+This keeps the visible gallery fast while preserving the larger image for preview.
+
+Current recommended thumbnail settings:
+
+- Format: `.webp`
+- Width: about `960px`
+- Quality: about `75`
+
+One Windows command pattern using `cwebp`:
+
+```powershell
+cwebp.exe -q 75 -resize 960 0 "public/blogs/2025-10/example.jpg" -o "public/blogs-thumbs/2025-10/example.webp"
+```
+
+If a thumbnail is missing, the gallery falls back to the original image.
 
 ### Blog Captions
 

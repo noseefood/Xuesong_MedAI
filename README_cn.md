@@ -172,6 +172,7 @@ author={Li, Xuesong# and Someone, Else*}
 
 - 页面配置：`content/blogs.toml`
 - 图片目录：`public/blogs/<folder-name>/`
+- 缩略图目录：`public/blogs-thumbs/<folder-name>/`
 - 可选 caption：`content/blogs.captions.toml`
 
 目录命名示例：
@@ -210,10 +211,43 @@ public/blogs/2026-01/IMG_0002.png
 - 按文件夹分组
 - 日期文件夹按最新优先排序
 - 每组第一张图作为较大的 featured tile
+- 如果存在 `public/blogs-thumbs/` 中的对应缩略图，优先加载缩略图
 - 点击图片打开 lightbox
 - 支持上一张/下一张按钮
 - 支持键盘左右键和 `Esc`
 - 支持移动端左右滑动切换
+
+### Blog 缩略图
+
+图片墙网格会优先使用 `public/blogs-thumbs/` 中的缩略图。点击图片打开 lightbox 时，仍然使用 `public/blogs/` 中的大图。
+
+例如原图：
+
+```text
+public/blogs/2025-10/Galaxy of hometown.jpg
+```
+
+对应缩略图应为：
+
+```text
+public/blogs-thumbs/2025-10/Galaxy of hometown.webp
+```
+
+这样页面滚动和首屏加载会明显更轻，同时仍然保留大图预览。
+
+当前推荐缩略图参数：
+
+- 格式：`.webp`
+- 宽度：约 `960px`
+- 质量：约 `75`
+
+Windows 下使用 `cwebp` 的单张转换示例：
+
+```powershell
+cwebp.exe -q 75 -resize 960 0 "public/blogs/2025-10/example.jpg" -o "public/blogs-thumbs/2025-10/example.webp"
+```
+
+如果某张图没有对应缩略图，网站会自动回退到原图。
 
 ### Blog Captions
 

@@ -145,7 +145,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                       >
                         <div className="relative aspect-square">
                           <Image
-                            src={withBasePath(img.src)}
+                            src={withBasePath(img.thumbSrc ?? img.src)}
                             alt={img.caption}
                             fill
                             sizes={isFeature ? '(max-width: 768px) 66vw, (max-width: 1024px) 50vw, 22vw' : '(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw'}
