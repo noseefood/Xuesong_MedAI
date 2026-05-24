@@ -34,6 +34,26 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Capture visual smoke screenshots
+        continue-on-error: true
+        run: |
+          npx playwright@latest install --with-deps chromium
+          npx serve@latest out -l 4173 &
+          npx wait-on@latest http://127.0.0.1:4173/Xuesong_MedAI/
+          mkdir -p screenshots
+          npx playwright@latest screenshot --browser=chromium --viewport-size=1440,1100 http://127.0.0.1:4173/Xuesong_MedAI/ screenshots/home-desktop.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size=390,1100 http://127.0.0.1:4173/Xuesong_MedAI/ screenshots/home-mobile.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size=1440,1100 http://127.0.0.1:4173/Xuesong_MedAI/publications/ screenshots/publications-desktop.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size=390,1100 http://127.0.0.1:4173/Xuesong_MedAI/blogs/ screenshots/blogs-mobile.png
+
+      - name: Upload visual smoke screenshots
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-smoke-screenshots
+          path: screenshots
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

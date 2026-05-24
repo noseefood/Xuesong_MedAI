@@ -2,22 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { CardPageConfig } from '@/types/page';
+import PageHeader from '@/components/ui/PageHeader';
 
 export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.35 }}
         >
-            <div className={embedded ? "mb-4" : "mb-8"}>
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
-                {config.description && (
-                    <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl`}>
-                        {config.description}
-                    </p>
-                )}
-            </div>
+            <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
             <div className={`grid ${embedded ? "gap-4" : "gap-6"}`}>
                 {config.items.map((item, index) => (
@@ -25,13 +19,13 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         key={index}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className={`bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]`}
+                        transition={{ duration: 0.25, delay: 0.03 * index }}
+                        className={`border-t border-neutral-200 dark:border-neutral-800 ${embedded ? "py-4" : "py-6"} transition-colors duration-200 first:border-t-0 hover:border-accent/40`}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
                             {item.date && (
-                                <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                                <span className="text-xs text-neutral-500 font-medium border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full">
                                     {item.date}
                                 </span>
                             )}
@@ -47,7 +41,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         {item.tags && (
                             <div className="flex flex-wrap gap-2 mt-4">
                                 {item.tags.map(tag => (
-                                    <span key={tag} className="text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800">
+                                    <span key={tag} className="text-xs text-neutral-500 px-2 py-1 rounded-full border border-neutral-200 dark:border-neutral-800">
                                         {tag}
                                     </span>
                                 ))}

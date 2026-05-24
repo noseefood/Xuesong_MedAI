@@ -1,4 +1,4 @@
 type = "publication"
 title = "Publications"
-description = "A collection of my research work."
+description = "Selected research on medical imaging, ultrasound robotics, and learning-based perception."
 source = "publications.bib"

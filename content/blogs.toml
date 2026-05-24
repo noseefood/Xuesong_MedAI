@@ -1,6 +1,6 @@
 type = "gallery"
 title = "Blogs"
-description = "A photo wall grouped by date."
+description = "A visual journal of places, conferences, and ordinary days outside the lab."
 
 # Images live under: /public/blogs/<DATE FOLDER>/*
 # Example: /public/blogs/2025-12-25/IMG_0001.jpg

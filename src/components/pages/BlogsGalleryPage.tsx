@@ -9,6 +9,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { GalleryPageConfig } from '@/types/page';
 import type { BlogGalleryEntry } from '@/lib/blogGallery';
 import { cn } from '@/lib/utils';
+import PageHeader from '@/components/ui/PageHeader';
 
 import { formatGalleryDate } from '@/lib/formatDate';
 
@@ -28,10 +29,10 @@ interface BlogsGalleryPageProps {
 
 export default function BlogsGalleryPage({ config, entries, embedded = false }: BlogsGalleryPageProps) {
   const flat = useMemo(() => {
-    const out: Array<{ src: string; alt: string; groupLabel: string }> = [];
+    const out: Array<{ src: string; alt: string; caption: string; groupLabel: string }> = [];
     for (const e of entries) {
       for (const img of e.images) {
-        out.push({ src: img.src, alt: img.filename, groupLabel: e.label });
+        out.push({ src: img.src, alt: img.filename, caption: img.caption, groupLabel: e.label });
       }
     }
     return out;
@@ -94,19 +95,14 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
+      transition={{ duration: 0.35 }}
     >
-      <div className={embedded ? 'mb-4' : 'mb-8'}>
-        <h1 className={`${embedded ? 'text-2xl' : 'text-4xl'} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
-        {config.description && (
-          <p className={`${embedded ? 'text-base' : 'text-lg'} text-neutral-600 dark:text-neutral-500 max-w-2xl`}>
-            {config.description}
-          </p>
-        )}
-        <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
-          Images are compressed previews for faster loading.
-        </p>
-      </div>
+      <PageHeader
+        title={config.title}
+        description={config.description}
+        embedded={embedded}
+        note="Images are compressed previews for faster loading."
+      />
 
       {entries.length === 0 ? (
         <div className="text-neutral-600 dark:text-neutral-500">
@@ -149,11 +145,14 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                         <div className="relative aspect-square">
                           <Image
                             src={withBasePath(img.src)}
-                            alt={img.filename}
+                            alt={img.caption}
                             fill
                             sizes={isFeature ? '(max-width: 768px) 66vw, (max-width: 1024px) 50vw, 22vw' : '(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw'}
                             className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                           />
+                          <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/55 px-2 py-1.5 text-left text-xs text-white backdrop-blur-sm transition-transform duration-200 group-hover:translate-y-0">
+                            {img.caption}
+                          </span>
                         </div>
                       </button>
                     );
@@ -194,7 +193,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                   <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
                     <div>
                       <DialogTitle className="text-sm font-semibold text-primary">{active?.groupLabel}</DialogTitle>
-                      <div className="text-xs text-neutral-500">{active?.alt}</div>
+                      <div className="text-xs text-neutral-500">{active?.caption}</div>
                     </div>
                     <button
                       type="button"
@@ -218,7 +217,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                       {active && (
                         <Image
                           src={withBasePath(active.src)}
-                          alt={active.alt}
+                          alt={active.caption}
                           fill
                           sizes="100vw"
                           className="object-contain"

@@ -1,0 +1,19 @@
+[captions]
+# Optional photo captions. Use "folder/filename" keys to override the filename-derived caption.
+# Example:
+# "2025-10/Galaxy of hometown.jpg" = "Galaxy of hometown"
+"2025-10/Galaxy of hometown.jpg" = "Galaxy of hometown"
+"2025-10/Maijishan Grottoes(1).jpg" = "Maijishan Grottoes"
+"2025-10/Maijishan Grottoes(2).JPG" = "Maijishan Grottoes"
+"2025-10/Maijishan Grottoes(3).JPG" = "Maijishan Grottoes"
+"2025-10/The Flying Horse of Gansu(1).jpg" = "The Flying Horse of Gansu"
+"2025-10/The Flying Horse of Gansu(2).jpg" = "The Flying Horse of Gansu"
+"2025-10/The museum of Gansu(1).jpg" = "The Museum of Gansu"
+"2025-10/The museum of Gansu(2).JPG" = "The Museum of Gansu"
+"2025-10/Xi'an Beilin Museum(1).jpg" = "Xi'an Beilin Museum"
+"2025-10/Xi'an Beilin Museum(2).jpg" = "Xi'an Beilin Museum"
+"2025-11/Geroldsee(1).jpg" = "Geroldsee"
+"2025-11/Geroldsee(2).jpg" = "Geroldsee"
+"2025-11/Geroldsee(3).JPG" = "Geroldsee"
+"2025-11/Herzogstand(1).jpg" = "Herzogstand"
+"2025-11/Herzogstand(2).jpg" = "Herzogstand"

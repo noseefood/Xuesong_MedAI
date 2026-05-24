@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { parse } from 'smol-toml';
 
 function joinUrl(...parts: string[]) {
   const url = parts
@@ -15,6 +16,7 @@ export interface BlogGalleryImage {
   /** Public URL path starting with '/' (Next.js basePath will be applied automatically). */
   src: string;
   filename: string;
+  caption: string;
 }
 
 export interface BlogGalleryEntry {
@@ -30,6 +32,28 @@ const DATE_FOLDER_RE = /^\d{4}(?:-\d{2}){0,2}$/;
 
 function isImageFile(name: string) {
   return IMAGE_EXTS.has(path.extname(name).toLowerCase());
+}
+
+function getDefaultCaption(filename: string) {
+  return path
+    .basename(filename, path.extname(filename))
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getGalleryCaptions(publicDirName: string) {
+  const captionsPath = path.join(process.cwd(), 'content', `${publicDirName}.captions.toml`);
+  if (!fs.existsSync(captionsPath)) return {};
+
+  try {
+    const parsed = parse(fs.readFileSync(captionsPath, 'utf-8')) as { captions?: Record<string, string> };
+    return parsed.captions ?? {};
+  } catch (error) {
+    console.error(`Error loading gallery captions from ${captionsPath}:`, error);
+    return {};
+  }
 }
 
 function sortGalleryFolders(a: string, b: string) {
@@ -51,6 +75,7 @@ function sortGalleryFolders(a: string, b: string) {
 export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[] {
   const publicRoot = path.join(process.cwd(), 'public');
   const dirPath = path.join(publicRoot, publicDirName);
+  const captions = getGalleryCaptions(publicDirName);
 
   if (!fs.existsSync(dirPath)) return [];
 
@@ -71,6 +96,7 @@ export function getBlogGalleryEntries(publicDirName: string): BlogGalleryEntry[]
 
       const images: BlogGalleryImage[] = files.map((filename) => ({
         filename,
+        caption: captions[`${folder}/${filename}`] ?? captions[filename] ?? getDefaultCaption(filename),
         src: joinUrl(
           publicDirName,
           encodeURIComponent(folder),

@@ -1,6 +1,6 @@
 type = "study"
 title = "Study"
-description = "Study notes grouped by topic (one markdown per topic)."
+description = "Working notes, technical references, and small experiments collected while learning."
 
 # Markdown files live under: /content/study/*.md
 directory = "study"

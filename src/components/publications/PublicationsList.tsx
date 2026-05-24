@@ -14,6 +14,8 @@ import {
 import { Publication } from '@/types/publication';
 import { PublicationPageConfig } from '@/types/page';
 import { cn } from '@/lib/utils';
+import PageHeader from '@/components/ui/PageHeader';
+import { actionPillClass } from '@/components/ui/ActionPill';
 
 interface PublicationsListProps {
     config: PublicationPageConfig;
@@ -60,16 +62,9 @@ export default function PublicationsList({ config, publications, embedded = fals
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.35 }}
         >
-            <div className="mb-8">
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-3`}>{config.title}</h1>
-                {config.description && (
-                    <p className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl leading-relaxed`}>
-                        {config.description}
-                    </p>
-                )}
-            </div>
+            <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
             {/* Search and Filter Controls */}
             <div className="mb-8 space-y-4">
@@ -193,22 +188,15 @@ export default function PublicationsList({ config, publications, embedded = fals
                             key={pub.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 * index }}
+                            transition={{ duration: 0.25, delay: 0.03 * index }}
                             className="group border-t border-neutral-200 dark:border-neutral-800 py-6 transition-colors duration-200 first:border-t-0 hover:border-accent/40"
                         >
                             <div className="flex flex-col md:flex-row gap-5">
                                 {pub.preview && (
                                     <div className="w-full md:w-44 flex-shrink-0">
                                         <div className="aspect-video md:aspect-[4/3] relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800 ring-1 ring-neutral-200 dark:ring-neutral-800 transition-shadow duration-200 group-hover:shadow-md">
-                                            {/* <Image
-                                                src={`/papers/${pub.preview}`}
-                                                alt={pub.title}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                            /> */}
                                             <img
-                                                src={pub.preview}   // 关键：相对路径，且不重复 papers/
+                                                src={pub.preview}
                                                 alt={pub.title}
                                                 className="object-cover w-full h-full"
                                                 loading="lazy"
@@ -237,6 +225,21 @@ export default function PublicationsList({ config, publications, embedded = fals
                                         {pub.journal || pub.conference} {pub.year}
                                     </p>
 
+                                    {(pub.conference || pub.journal || pub.keywords?.length || pub.tags?.length) && (
+                                        <div className="mb-3 flex flex-wrap gap-1.5">
+                                            {(pub.conference || pub.journal) && (
+                                                <span className="rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+                                                    {pub.conference || pub.journal}
+                                                </span>
+                                            )}
+                                            {(pub.keywords ?? pub.tags ?? []).slice(0, 3).map((tag) => (
+                                                <span key={tag} className="rounded-full border border-neutral-200 dark:border-neutral-800 px-2.5 py-1 text-xs text-neutral-500 dark:text-neutral-400">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
                                     {pub.description && (
                                         <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-4 line-clamp-3">
                                             {pub.description}
@@ -249,7 +252,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={`https://doi.org/${pub.doi}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent transition-colors"
+                                                className={actionPillClass()}
                                             >
                                                 DOI
                                             </a>
@@ -259,7 +262,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 href={pub.code}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent transition-colors"
+                                                className={actionPillClass()}
                                             >
                                                 Code
                                             </a>
@@ -268,10 +271,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             <button
                                                 onClick={() => setExpandedAbstractId(expandedAbstractId === pub.id ? null : pub.id)}
                                                 className={cn(
-                                                    "inline-flex items-center px-2.5 py-1 rounded-full border text-xs font-medium transition-colors",
-                                                    expandedAbstractId === pub.id
-                                                        ? "border-accent bg-accent text-white"
-                                                        : "border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent"
+                                                    actionPillClass(expandedAbstractId === pub.id)
                                                 )}
                                             >
                                                 <DocumentTextIcon className="h-3 w-3 mr-1.5" />
@@ -282,10 +282,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             <button
                                                 onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
                                                 className={cn(
-                                                    "inline-flex items-center px-2.5 py-1 rounded-full border text-xs font-medium transition-colors",
-                                                    expandedBibtexId === pub.id
-                                                        ? "border-accent bg-accent text-white"
-                                                        : "border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent"
+                                                    actionPillClass(expandedBibtexId === pub.id)
                                                 )}
                                             >
                                                 <BookOpenIcon className="h-3 w-3 mr-1.5" />

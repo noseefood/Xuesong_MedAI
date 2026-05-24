@@ -10,6 +10,7 @@ import { X } from 'lucide-react';
 import { StudyPageConfig } from '@/types/page';
 import type { StudyEntry } from '@/lib/studyIndex';
 import { cn, formatDate } from '@/lib/utils';
+import PageHeader from '@/components/ui/PageHeader';
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -50,16 +51,9 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
+      transition={{ duration: 0.35 }}
     >
-      <div className={embedded ? 'mb-4' : 'mb-8'}>
-        <h1 className={`${embedded ? 'text-2xl' : 'text-4xl'} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
-        {config.description && (
-          <p className={`${embedded ? 'text-base' : 'text-lg'} text-neutral-600 dark:text-neutral-500 max-w-2xl`}>
-            {config.description}
-          </p>
-        )}
-      </div>
+      <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
       <div className={cn('mb-6', embedded ? 'max-w-md' : 'max-w-xl')}>
         <div className="relative">
@@ -73,54 +67,66 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
         </div>
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="text-neutral-600 dark:text-neutral-500">
-          No study notes found. Put markdown files under <code className="px-1 py-0.5 bg-neutral-100 dark:bg-neutral-800 rounded">content/{config.directory}/</code>.
-        </div>
-      ) : (
-        <div className={cn('grid', embedded ? 'gap-4' : 'gap-6')}>
-          {filtered.map((e, idx) => (
-            <motion.button
-              key={e.slug}
-              type="button"
-              onClick={() => openEntry(e)}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.05 * idx }}
-              className={cn(
-                'text-left w-full bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]',
-                embedded ? 'p-4' : 'p-6'
-              )}
-            >
-              <div className="flex items-start gap-4">
-                {e.thumbnail ? (
-                  <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
-                    <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="96px" />
-                  </div>
-                ) : (
-                  <div className="w-24 h-24 shrink-0 rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/20" />
-                )}
+      <div className={cn(!embedded && 'lg:grid lg:grid-cols-[11rem_1fr] lg:gap-8')}>
+        {!embedded && (
+          <aside className="mb-6 hidden lg:block">
+            <div className="sticky top-24 border-t border-neutral-200 dark:border-neutral-800 pt-4">
+              <p className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400">Notebook</p>
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-500">{entries.length} notes</p>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-500">{filtered.length} shown</p>
+            </div>
+          </aside>
+        )}
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>
-                      {e.title}
-                    </h3>
-                    <span className="text-xs text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded whitespace-nowrap">
-                      {formatDate(e.updatedAt)}
-                    </span>
-                  </div>
-                  {e.excerpt && (
-                    <p className={cn('mt-2 text-neutral-600 dark:text-neutral-500 leading-relaxed', embedded ? 'text-sm' : 'text-base')}>
-                      {e.excerpt}
-                    </p>
+        {filtered.length === 0 ? (
+          <div className="text-neutral-600 dark:text-neutral-500">
+            No study notes found. Put markdown files under <code className="px-1 py-0.5 bg-neutral-100 dark:bg-neutral-800 rounded">content/{config.directory}/</code>.
+          </div>
+        ) : (
+          <div className="grid">
+            {filtered.map((e, idx) => (
+              <motion.button
+                key={e.slug}
+                type="button"
+                onClick={() => openEntry(e)}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: 0.03 * idx }}
+                className={cn(
+                  'text-left w-full border-t border-neutral-200 dark:border-neutral-800 py-5 transition-colors duration-200 first:border-t-0 hover:border-accent/40',
+                  embedded && 'py-4'
+                )}
+              >
+                <div className="flex items-start gap-4">
+                  {e.thumbnail ? (
+                    <div className="relative w-20 h-20 shrink-0 rounded-md overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
+                      <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="80px" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 shrink-0 rounded-md border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/20" />
                   )}
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary leading-snug')}>
+                        {e.title}
+                      </h3>
+                      <span className="text-xs text-neutral-500 font-medium border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full whitespace-nowrap">
+                        {formatDate(e.updatedAt)}
+                      </span>
+                    </div>
+                    {e.excerpt && (
+                      <p className={cn('mt-2 text-neutral-600 dark:text-neutral-500 leading-relaxed', embedded ? 'text-sm' : 'text-base')}>
+                        {e.excerpt}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      )}
+              </motion.button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <Transition appear show={open} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={close}>
@@ -139,7 +145,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-4xl overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-800">
+                <DialogPanel className="w-full max-w-4xl max-h-[88vh] overflow-hidden rounded-xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-800">
                   <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
                     <div>
                       <DialogTitle className="text-base font-semibold text-primary">{active?.title}</DialogTitle>
@@ -150,7 +156,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                     </button>
                   </div>
 
-                  <div className="px-5 py-6 text-neutral-700 dark:text-neutral-600 leading-relaxed">
+                  <div className="max-h-[72vh] overflow-y-auto px-5 py-6 text-neutral-700 dark:text-neutral-600 leading-relaxed">
                     {active && (
                       <ReactMarkdown
                         components={{

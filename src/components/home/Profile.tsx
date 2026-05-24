@@ -114,7 +114,7 @@ export default function Profile({ author, social, features, researchInterests }:
             className="sticky top-8"
         >
             {/* Profile Image */}
-            <div className="w-56 h-56 mx-auto mb-6 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-sm transition-shadow duration-200 hover:shadow-md">
+            <div className="w-28 h-28 sm:w-56 sm:h-56 mx-auto mb-5 sm:mb-6 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-sm transition-shadow duration-200 hover:shadow-md">
                 {/* <img
                     src={author.avatar}
                     alt={author.name}
@@ -135,7 +135,7 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Name and Title */}
             <div className="text-center mb-5">
-                <h1 className="text-3xl font-serif font-bold text-primary mb-1">
+                <h1 className="text-2xl sm:text-3xl font-serif font-bold text-primary mb-1">
                     {author.name}
                 </h1>
                 <p className="text-base text-accent font-medium mb-1">
@@ -329,18 +329,6 @@ export default function Profile({ author, social, features, researchInterests }:
                     </div>
                 </div>
             )}
-
-            {/* Visitor Map - 新增部分 */}
-            <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
-                <h3 className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400 mb-3">Visitor Map</h3>
-                {/* <p className="text-xs text-neutral-600 dark:text-neutral-500 mb-3 text-center">
-                    Thanks for visiting!
-                </p> */}
-                <div className="flex justify-center items-center opacity-80 grayscale-[15%] hover:opacity-100 hover:grayscale-0 transition-all duration-200">
-                    {/* <a href="https://mapmyvisitors.com/web/1c1gv"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&cl=ffffff" /></a> */}
-                    <a href='https://mapmyvisitors.com/web/1c1gv'  title='Visit tracker'><img src='https://mapmyvisitors.com/map.png?cl=ffffff&w=300&t=n&d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&co=2d78ad&ct=ffffff'/></a>
-                </div>
-            </div>
 
             {/* Like Button */}
             {features.enable_likes && (
