@@ -3,6 +3,7 @@ import { getMarkdownContent, getBibtexContent, getTomlContent, getPageConfig } f
 import { parseBibTeX } from '@/lib/bibtexParser';
 import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
+import ResearchStatement from '@/components/home/ResearchStatement';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
 import PublicationsList from '@/components/publications/PublicationsList';
@@ -166,6 +167,8 @@ export default function Home() {
 
         {/* Right Column - Content */}
         <div className="lg:col-span-2 space-y-8">
+          <ResearchStatement />
+
           {pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
               {page.type === 'about' && page.sections.map((section: SectionConfig) => {

@@ -42,7 +42,12 @@ npm run build
 
 构建产物会生成在 `out/` 目录中，GitHub Actions 会自动部署到 GitHub Pages。
 
-本地运行 `npm run dev` 或 `npm run build` 不会自动上传任何文件到 GitHub。只有你手动执行 `git add`、`git commit`、`git push` 后，改动才会上传。
+本地 npm 命令和 GitHub Pages 部署是相互独立的：
+
+- `npm run dev` 只会启动本地开发服务器。
+- `npm run build` 只会在本地生成构建产物，例如 `out/` 和 `.next/`。
+- 这两个命令都不会把文件上传到 GitHub。
+- 只有你手动执行 `git add`、`git commit`、`git push` 后，文件才会上传到 GitHub。
 
 ## 项目结构
 

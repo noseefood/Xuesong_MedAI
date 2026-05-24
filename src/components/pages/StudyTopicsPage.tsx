@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { X } from 'lucide-react';
+import { Clock3, X } from 'lucide-react';
 import { StudyPageConfig } from '@/types/page';
 import type { StudyEntry } from '@/lib/studyIndex';
 import { cn, formatDate } from '@/lib/utils';
@@ -28,11 +28,20 @@ interface StudyTopicsPageProps {
 
 export default function StudyTopicsPage({ config, entries, embedded = false }: StudyTopicsPageProps) {
   const [query, setQuery] = useState('');
+  const [topic, setTopic] = useState('all');
+  const topics = useMemo(() => {
+    const values = entries.map((e) => e.title.split(/[:|-]/)[0].trim()).filter(Boolean);
+    return Array.from(new Set(values)).slice(0, 6);
+  }, [entries]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return entries;
-    return entries.filter((e) => (e.title + ' ' + (e.excerpt ?? '')).toLowerCase().includes(q));
-  }, [entries, query]);
+    return entries.filter((e) => {
+      const matchesQuery = !q || (e.title + ' ' + (e.excerpt ?? '')).toLowerCase().includes(q);
+      const matchesTopic = topic === 'all' || e.title.toLowerCase().startsWith(topic.toLowerCase());
+      return matchesQuery && matchesTopic;
+    });
+  }, [entries, query, topic]);
 
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<StudyEntry | null>(null);
@@ -65,15 +74,52 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-primary placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:focus:ring-neutral-700"
           />
         </div>
+        {topics.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setTopic('all')}
+              className={cn(
+                'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+                topic === 'all'
+                  ? 'border-accent bg-accent text-white'
+                  : 'border-neutral-200 text-neutral-600 hover:border-accent hover:text-accent dark:border-neutral-800 dark:text-neutral-400'
+              )}
+            >
+              All
+            </button>
+            {topics.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setTopic(item)}
+                className={cn(
+                  'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+                  topic === item
+                    ? 'border-accent bg-accent text-white'
+                    : 'border-neutral-200 text-neutral-600 hover:border-accent hover:text-accent dark:border-neutral-800 dark:text-neutral-400'
+                )}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={cn(!embedded && 'lg:grid lg:grid-cols-[11rem_1fr] lg:gap-8')}>
         {!embedded && (
           <aside className="mb-6 hidden lg:block">
-            <div className="sticky top-24 border-t border-neutral-200 dark:border-neutral-800 pt-4">
+            <div className="scan-panel sticky top-24 rounded-lg border fine-divider bg-white/70 px-4 py-4 dark:bg-neutral-900/60">
               <p className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400">Notebook</p>
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-500">{entries.length} notes</p>
               <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-500">{filtered.length} shown</p>
+              {entries[0]?.updatedAt && (
+                <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
+                  <Clock3 className="h-3.5 w-3.5 text-accent" />
+                  Recent {formatDate(entries[0].updatedAt)}
+                </p>
+              )}
             </div>
           </aside>
         )}
@@ -93,13 +139,13 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, delay: 0.03 * idx }}
                 className={cn(
-                  'text-left w-full border-t border-neutral-200 dark:border-neutral-800 py-5 transition-colors duration-200 first:border-t-0 hover:border-accent/40',
+                  'text-left w-full border-t fine-divider py-5 transition-colors duration-200 first:border-t-0 hover:border-accent/40',
                   embedded && 'py-4'
                 )}
               >
                 <div className="flex items-start gap-4">
                   {e.thumbnail ? (
-                    <div className="relative w-20 h-20 shrink-0 rounded-md overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
+                    <div className="scan-panel relative w-20 h-20 shrink-0 rounded-md overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
                       <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="80px" />
                     </div>
                   ) : (

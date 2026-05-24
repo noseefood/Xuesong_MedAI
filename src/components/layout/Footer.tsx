@@ -8,6 +8,29 @@ export default function Footer({ lastUpdated }: FooterProps) {
   return (
     <footer className="border-t border-neutral-200/50 bg-neutral-50/50 dark:bg-neutral-900/50 dark:border-neutral-700/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="mb-5 flex justify-center">
+          <div className="scan-panel rounded-lg border fine-divider bg-white/70 p-3 dark:bg-neutral-900/60">
+            <p className="mb-2 text-center text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400">
+              Site Footprint
+            </p>
+            <a
+              href="https://mapmyvisitors.com/web/1c1gv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800 opacity-85 grayscale-[10%] transition-all duration-200 hover:opacity-100 hover:grayscale-0"
+              aria-label="Open visitor map"
+            >
+              <img
+                src="https://mapmyvisitors.com/map.png?cl=ffffff&w=300&t=n&d=spoPd5-cyxNR5RAQ7OyMY_SvoDWSA8epaipXvu3ozig&co=2d78ad&ct=ffffff"
+                alt="Visitor map"
+                width={300}
+                height={150}
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-xs text-neutral-500">
             Last updated: {lastUpdated || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

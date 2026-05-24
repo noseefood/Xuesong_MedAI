@@ -179,6 +179,39 @@ body {
   text-wrap: pretty;
 }
 
+.scan-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(45, 120, 173, 0.08) 0,
+      rgba(45, 120, 173, 0.08) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  opacity: 0.45;
+}
+
+.scan-panel > * {
+  position: relative;
+}
+
+.fine-divider {
+  border-color: color-mix(in srgb, var(--neutral-200) 72%, var(--accent) 28%);
+}
+
+.dark .fine-divider {
+  border-color: color-mix(in srgb, var(--neutral-800) 72%, var(--accent) 28%);
+}
+
 /* Glass morphism utilities */
 .glass {
   background: var(--glass-bg);

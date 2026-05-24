@@ -37,7 +37,12 @@ npm run build
 
 The static output is generated in `out/`. GitHub Actions deploys it to GitHub Pages.
 
-Running `npm run dev` or `npm run build` locally does not upload anything to GitHub. Files are only uploaded after you explicitly run `git add`, `git commit`, and `git push`.
+Local npm commands and GitHub Pages deployment are independent:
+
+- `npm run dev` only starts a local development server.
+- `npm run build` only creates local build output such as `out/` and `.next/`.
+- Neither command uploads files to GitHub.
+- Files are uploaded only after you explicitly run `git add`, `git commit`, and `git push`.
 
 ## Project Layout
 

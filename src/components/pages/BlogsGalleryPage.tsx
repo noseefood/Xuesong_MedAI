@@ -116,12 +116,13 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
               <div
                 key={entry.key}
                 className={cn(
-                  'border-t border-neutral-200 dark:border-neutral-800',
+                  'border-t fine-divider',
                   embedded ? 'pt-4' : 'pt-6'
                 )}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
+                <div className="mb-4 flex items-center gap-3">
+                  <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-serif font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
+                  <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800" />
                   <span className="text-xs text-neutral-500 font-medium border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full">
                     {entry.images.length} photo{entry.images.length === 1 ? '' : 's'}
                   </span>
@@ -138,7 +139,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                         onClick={() => openAt(idx)}
                         className={cn(
                           'group relative overflow-hidden rounded-md bg-neutral-50 dark:bg-neutral-800/40',
-                          isFeature && 'col-span-2 row-span-2'
+                          isFeature && 'col-span-3 row-span-2 sm:col-span-2'
                         )}
                         aria-label={`Open image ${img.filename}`}
                       >

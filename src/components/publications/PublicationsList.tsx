@@ -66,6 +66,21 @@ export default function PublicationsList({ config, publications, embedded = fals
         >
             <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
+            <div className="scan-panel mb-6 grid grid-cols-3 overflow-hidden rounded-lg border fine-divider bg-white/70 dark:bg-neutral-900/60">
+                <div className="px-4 py-3">
+                    <p className="text-2xl font-serif font-bold text-primary">{publications.length}</p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Publications</p>
+                </div>
+                <div className="border-l fine-divider px-4 py-3">
+                    <p className="text-2xl font-serif font-bold text-primary">{publications.filter((p) => p.selected).length}</p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Selected</p>
+                </div>
+                <div className="border-l fine-divider px-4 py-3">
+                    <p className="text-2xl font-serif font-bold text-primary">{years[0] ?? '-'}</p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Latest year</p>
+                </div>
+            </div>
+
             {/* Search and Filter Controls */}
             <div className="mb-8 space-y-4">
                 {/* ... (keep existing controls) ... */}
@@ -189,12 +204,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.25, delay: 0.03 * index }}
-                            className="group border-t border-neutral-200 dark:border-neutral-800 py-6 transition-colors duration-200 first:border-t-0 hover:border-accent/40"
+                            className="group border-t fine-divider py-6 transition-colors duration-200 first:border-t-0 hover:border-accent/40"
                         >
                             <div className="flex flex-col md:flex-row gap-5">
                                 {pub.preview && (
                                     <div className="w-full md:w-44 flex-shrink-0">
-                                        <div className="aspect-video md:aspect-[4/3] relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800 ring-1 ring-neutral-200 dark:ring-neutral-800 transition-shadow duration-200 group-hover:shadow-md">
+                                        <div className="scan-panel aspect-video md:aspect-[4/3] relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800 ring-1 ring-neutral-200 dark:ring-neutral-800 transition-shadow duration-200 group-hover:shadow-md">
                                             <img
                                                 src={pub.preview}
                                                 alt={pub.title}

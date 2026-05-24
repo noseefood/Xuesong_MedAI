@@ -315,7 +315,7 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="border-t border-neutral-200 dark:border-neutral-800 pt-5 mb-6">
+                <div className="border-t fine-divider pt-5 mb-6">
                     <h3 className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400 mb-3">Research Interests</h3>
                     <div className="flex flex-wrap gap-2">
                         {researchInterests.map((interest, index) => (
