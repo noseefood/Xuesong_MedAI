@@ -128,7 +128,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 auto-rows-fr">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-2 md:grid-cols-6">
                   {entry.images.map((img, i) => {
                     const idx = offset + i;
                     const isFeature = i === 0 && entry.images.length > 3;
@@ -138,8 +138,8 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                         type="button"
                         onClick={() => openAt(idx)}
                         className={cn(
-                          'group relative overflow-hidden rounded-md bg-neutral-50 dark:bg-neutral-800/40',
-                          isFeature && 'col-span-3 row-span-2 sm:col-span-2'
+                          'group relative overflow-hidden rounded-md border border-neutral-200/70 bg-white text-left shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60',
+                          isFeature && 'col-span-2 sm:row-span-2'
                         )}
                         aria-label={`Open image ${img.filename}`}
                       >
@@ -151,10 +151,13 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                             sizes={isFeature ? '(max-width: 768px) 66vw, (max-width: 1024px) 50vw, 22vw' : '(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw'}
                             className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                           />
-                          <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/55 px-2 py-1.5 text-left text-xs text-white backdrop-blur-sm transition-transform duration-200 group-hover:translate-y-0">
+                          <span className="absolute inset-x-0 bottom-0 hidden translate-y-full bg-black/55 px-2 py-1.5 text-left text-xs text-white backdrop-blur-sm transition-transform duration-200 group-hover:translate-y-0 sm:block">
                             {img.caption}
                           </span>
                         </div>
+                        <span className="block px-2.5 py-2 text-xs leading-snug text-neutral-600 dark:text-neutral-400 sm:hidden">
+                          {img.caption}
+                        </span>
                       </button>
                     );
                   })}

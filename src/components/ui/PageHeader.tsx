@@ -11,7 +11,13 @@ interface PageHeaderProps {
 export default function PageHeader({ title, description, embedded = false, note, className }: PageHeaderProps) {
   return (
     <div className={cn(embedded ? 'mb-5' : 'mb-8', className)}>
-      <h1 className={cn(embedded ? 'text-2xl' : 'text-4xl', 'font-serif font-bold text-primary mb-3')}>
+      <div className="mb-3 flex items-center gap-3">
+        <span className="h-px w-8 bg-accent" />
+        <span className="text-[11px] font-semibold uppercase text-neutral-500 dark:text-neutral-400">
+          Research Archive
+        </span>
+      </div>
+      <h1 className={cn(embedded ? 'text-2xl' : 'text-4xl', 'font-serif font-bold leading-tight text-primary mb-3')}>
         {title}
       </h1>
       {description && (

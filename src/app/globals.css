@@ -161,13 +161,25 @@
 
 
 body {
-  background: var(--background);
+  background:
+    linear-gradient(90deg, rgba(30, 41, 59, 0.025) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.02) 1px, transparent 1px),
+    var(--background);
+  background-size: 48px 48px, 48px 48px, auto;
   color: var(--foreground);
   font-family: var(--font-sans);
   line-height: var(--line-height-normal);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body {
+  background:
+    linear-gradient(90deg, rgba(226, 232, 240, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(226, 232, 240, 0.025) 1px, transparent 1px),
+    var(--background);
+  background-size: 48px 48px, 48px 48px, auto;
 }
 
 /* Typography utilities */
@@ -210,6 +222,30 @@ body {
 
 .dark .fine-divider {
   border-color: color-mix(in srgb, var(--neutral-800) 72%, var(--accent) 28%);
+}
+
+.academic-panel {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--neutral-200) 76%, var(--accent) 24%);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 250, 252, 0.72));
+}
+
+.academic-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(45, 120, 173, 0.45), transparent);
+  pointer-events: none;
+}
+
+.dark .academic-panel {
+  border-color: color-mix(in srgb, var(--neutral-800) 76%, var(--accent) 24%);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(30, 41, 59, 0.56));
 }
 
 /* Glass morphism utilities */
