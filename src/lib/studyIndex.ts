@@ -14,6 +14,7 @@ export interface StudyEntry {
   excerpt?: string;
 }
 
+const DEFAULT_STUDY_THUMBNAIL = '/study-assets/diffusion/test1.png';
 const MD_IMAGE_RE = /!\[[^\]]*\]\(([^)]+)\)/;
 
 function extractTitle(md: string, fallback: string): string {
@@ -36,10 +37,18 @@ function extractFirstImage(md: string): string | undefined {
 
 function extractExcerpt(md: string): string | undefined {
   const cleaned = md
+    .replace(/^---[\s\S]*?---\s*/m, ' ')
     .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`([^`]+)`/g, '$1')
     .replace(/^\s*#+\s+.*$/gm, ' ')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
     .replace(/\[[^\]]+\]\([^)]+\)/g, '$1')
+    .replace(/^\s*>\s?/gm, '')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/^\s*\|?[-:\s|]+\|?\s*$/gm, ' ')
+    .replace(/[|*_~>#]/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -72,7 +81,7 @@ export function getStudyEntries(directory: string): StudyEntry[] {
       return {
         slug,
         title,
-        thumbnail: extractFirstImage(md),
+        thumbnail: extractFirstImage(md) ?? DEFAULT_STUDY_THUMBNAIL,
         content: md,
         updatedAt: stat.mtime.toISOString(),
         excerpt: extractExcerpt(md),

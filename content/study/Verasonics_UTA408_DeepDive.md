@@ -1,4 +1,4 @@
-# 64 个通道，128 个阵元：拆解 Verasonics UTA-408-GE-MUX
+# (US学习)分析Verasonics UTA-408-GE-MUX接口
 
 > 基于 `VantageNXT-2.3.2-p2/Example_Scripts/Biomedical/VantageNXT_64/UTA-408-GE-MUX/L11-5gH/` 下全部脚本源码逐行分析，并核对官方《Sequence Programming Manual》《Doppler》HelpText 得出。示例探头为 L11-5gH（128 阵元线阵），结论对同目录下 C5-2gH / P4-2gH 同样适用，个别脚本的具体硬编码数值需自行核对。
 

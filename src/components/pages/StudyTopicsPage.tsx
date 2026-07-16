@@ -144,13 +144,9 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                 )}
               >
                 <div className="flex items-start gap-4">
-                  {e.thumbnail ? (
-                    <div className="scan-panel relative w-20 h-20 shrink-0 rounded-md overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/40">
-                      <Image src={withBasePath(e.thumbnail)} alt={e.title} fill className="object-cover" sizes="80px" />
-                    </div>
-                  ) : (
-                    <div className="w-20 h-20 shrink-0 rounded-md border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/20" />
-                  )}
+                  <div className="scan-panel relative w-20 h-20 shrink-0 overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-800/40">
+                    <Image src={withBasePath(e.thumbnail ?? '/study-assets/diffusion/test1.png')} alt={e.title} fill className="object-cover" sizes="80px" />
+                  </div>
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3">
@@ -191,9 +187,9 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-4xl max-h-[88vh] overflow-hidden rounded-xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-800">
-                  <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-800">
-                    <div>
+                <DialogPanel className="w-full max-w-6xl max-h-[92vh] overflow-hidden rounded-xl bg-white shadow-xl border border-neutral-200 dark:border-neutral-800 dark:bg-neutral-900">
+                  <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
+                    <div className="min-w-0">
                       <DialogTitle className="text-base font-semibold text-primary">{active?.title}</DialogTitle>
                       {active?.updatedAt && <div className="text-xs text-neutral-500">Updated {formatDate(active.updatedAt)}</div>}
                     </div>
@@ -202,7 +198,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                     </button>
                   </div>
 
-                  <div className="max-h-[72vh] overflow-y-auto px-5 py-6 text-neutral-700 dark:text-neutral-600 leading-relaxed">
+                  <div className="max-h-[80vh] overflow-y-auto px-5 py-6 text-neutral-700 leading-relaxed dark:text-neutral-400 sm:px-8 lg:px-10">
                     {active && (
                       <ReactMarkdown
                         components={{
@@ -228,6 +224,16 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                           ),
                           strong: ({ children }) => <strong className="font-semibold text-primary">{children}</strong>,
                           em: ({ children }) => <em className="italic text-neutral-600 dark:text-neutral-500">{children}</em>,
+                          code: ({ children }) => (
+                            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm text-primary dark:bg-neutral-800">
+                              {children}
+                            </code>
+                          ),
+                          pre: ({ children }) => (
+                            <pre className="mb-4 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm dark:border-neutral-800 dark:bg-neutral-950">
+                              {children}
+                            </pre>
+                          ),
                           img: ({ src = '', alt = '' }) => (
                             <span className="block relative w-full h-auto">
                               <img
