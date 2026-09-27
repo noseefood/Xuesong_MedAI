@@ -9,16 +9,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Clock3, X } from 'lucide-react';
 import { StudyPageConfig } from '@/types/page';
 import type { StudyEntry } from '@/lib/studyIndex';
-import { cn, formatDate } from '@/lib/utils';
+import { cn, formatDate, withBasePath } from '@/lib/utils';
 import PageHeader from '@/components/ui/PageHeader';
-
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-function withBasePath(src: string) {
-  if (!BASE_PATH) return src;
-  if (src.startsWith(BASE_PATH + '/')) return src;
-  return `${BASE_PATH}${src.startsWith('/') ? '' : '/'}${src}`;
-}
 
 interface StudyTopicsPageProps {
   config: StudyPageConfig;

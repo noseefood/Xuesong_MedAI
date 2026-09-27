@@ -13,6 +13,7 @@ import { MapPinIcon as MapPinSolidIcon, EnvelopeIcon as EnvelopeSolidIcon } from
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { Github, Linkedin, Pin } from 'lucide-react';
 import { SiteConfig } from '@/lib/config';
+import { withBasePath } from '@/lib/utils';
 
 // import { useState } from "react";
 
@@ -104,13 +105,15 @@ export default function Profile({ author, social, features, researchInterests }:
         }] : []),
     ];
 
-    const [imgSrc, setImgSrc] = useState(author.avatar);
+    const avatarSrc = withBasePath(author.avatar);
+    const hoverSrc = withBasePath('icons/xuesong_icon_US.png');
+    const [imgSrc, setImgSrc] = useState(avatarSrc);
 
     // Warm the hover portrait so the first swap does not flash.
     useEffect(() => {
         const img = new window.Image();
-        img.src = "icons/xuesong_icon_US.png";
-    }, []);
+        img.src = hoverSrc;
+    }, [hoverSrc]);
 
     return (
         <motion.div
@@ -136,8 +139,8 @@ export default function Profile({ author, social, features, researchInterests }:
                     fetchPriority="high"
                     decoding="async"
                     className="w-full h-full object-cover object-[32%_center]"
-                    onMouseEnter={() => setImgSrc("icons/xuesong_icon_US.png")}
-                    onMouseLeave={() => setImgSrc(author.avatar)}
+                    onMouseEnter={() => setImgSrc(hoverSrc)}
+                    onMouseLeave={() => setImgSrc(avatarSrc)}
                 />
             </div>
 

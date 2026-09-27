@@ -8,18 +8,10 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { GalleryPageConfig } from '@/types/page';
 import type { BlogGalleryEntry } from '@/lib/blogGallery';
-import { cn } from '@/lib/utils';
+import { cn, withBasePath } from '@/lib/utils';
 import PageHeader from '@/components/ui/PageHeader';
 
 import { formatGalleryDate } from '@/lib/formatDate';
-
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-function withBasePath(src: string) {
-  if (!BASE_PATH) return src;
-  if (src.startsWith(BASE_PATH + '/')) return src;
-  return `${BASE_PATH}${src.startsWith('/') ? '' : '/'}${src}`;
-}
 
 interface BlogsGalleryPageProps {
   config: GalleryPageConfig;
