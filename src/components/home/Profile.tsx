@@ -321,12 +321,9 @@ export default function Profile({ author, social, features, researchInterests }:
                         {researchInterests.map((interest, index) => (
                             <span
                                 key={index}
-                                className={`rounded-full border px-3 py-1 text-xs font-medium ${[
-                                    'border-iris/25 bg-iris-soft text-iris',
-                                    'border-accent/25 bg-accent-soft text-accent',
-                                    'border-gold/25 bg-gold-soft text-gold',
-                                ][index % 3]}`}
+                                className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium text-neutral-700"
                             >
+                                <span className={`h-1.5 w-1.5 rounded-full ${['bg-iris-marker', 'bg-accent-marker', 'bg-gold-marker'][index % 3]}`} aria-hidden="true" />
                                 {interest}
                             </span>
                         ))}

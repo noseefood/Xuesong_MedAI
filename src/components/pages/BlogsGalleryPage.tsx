@@ -123,7 +123,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                 <div className="mb-4 flex items-center gap-3">
                   <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-serif font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
                   <div className="band-rule flex-1" aria-hidden="true" />
-                  <span className="font-mono text-xs text-accent border border-accent/25 bg-accent-soft px-2 py-0.5 rounded-full tabular-nums">
+                  <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full tabular-nums">
                     {entry.images.length} photo{entry.images.length === 1 ? '' : 's'}
                   </span>
                 </div>

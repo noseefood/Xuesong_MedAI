@@ -16,6 +16,8 @@ import { PublicationPageConfig } from '@/types/page';
 import { cn } from '@/lib/utils';
 import PageHeader from '@/components/ui/PageHeader';
 import { actionPillClass } from '@/components/ui/ActionPill';
+import TopicMark from '@/components/ui/TopicMark';
+import { TOPICS, TOPIC_ORDER, type Topic } from '@/lib/topics';
 
 interface PublicationsListProps {
     config: PublicationPageConfig;
@@ -27,6 +29,7 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
     const [selectedType, setSelectedType] = useState<string | 'all'>('all');
+    const [selectedTopic, setSelectedTopic] = useState<Topic | 'all'>('all');
     const [showFilters, setShowFilters] = useState(false);
     const [expandedBibtexId, setExpandedBibtexId] = useState<string | null>(null);
     const [expandedAbstractId, setExpandedAbstractId] = useState<string | null>(null);
@@ -53,10 +56,17 @@ export default function PublicationsList({ config, publications, embedded = fals
 
             const matchesYear = selectedYear === 'all' || pub.year === selectedYear;
             const matchesType = selectedType === 'all' || pub.type === selectedType;
+            const matchesTopic = selectedTopic === 'all' || pub.topic === selectedTopic;
 
-            return matchesSearch && matchesYear && matchesType;
+            return matchesSearch && matchesYear && matchesType && matchesTopic;
         });
-    }, [publications, searchQuery, selectedYear, selectedType]);
+    }, [publications, searchQuery, selectedYear, selectedType, selectedTopic]);
+
+    const topicCounts = useMemo(() => {
+        const counts: Record<Topic, number> = { ultrasound: 0, learning: 0, robotics: 0 };
+        publications.forEach((p) => { counts[p.topic] += 1; });
+        return counts;
+    }, [publications]);
 
     return (
         <motion.div
@@ -66,19 +76,43 @@ export default function PublicationsList({ config, publications, embedded = fals
         >
             <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
-            <div className="academic-panel scan-panel mb-6 grid grid-cols-3 overflow-hidden rounded-lg">
-                <div className="px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-accent">{publications.length}</p>
+            <div className="mb-5 grid grid-cols-3 border-y fine-divider">
+                <div className="px-1 py-3">
+                    <p className="text-2xl font-serif font-semibold text-primary">{publications.length}</p>
                     <p className="eyebrow mt-0.5 text-neutral-500">Publications</p>
                 </div>
                 <div className="border-l fine-divider px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-iris">{publications.filter((p) => p.selected).length}</p>
+                    <p className="text-2xl font-serif font-semibold text-primary">{publications.filter((p) => p.selected).length}</p>
                     <p className="eyebrow mt-0.5 text-neutral-500">Selected</p>
                 </div>
                 <div className="border-l fine-divider px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-gold">{years[0] ?? '-'}</p>
+                    <p className="text-2xl font-serif font-semibold text-primary">{years[0] ?? '-'}</p>
                     <p className="eyebrow mt-0.5 text-neutral-500">Latest year</p>
                 </div>
+            </div>
+
+            {/* Topic legend: the three hues, also a filter */}
+            <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter by topic">
+                {TOPIC_ORDER.map((t) => {
+                    const active = selectedTopic === t;
+                    return (
+                        <button
+                            key={t}
+                            type="button"
+                            aria-pressed={active}
+                            onClick={() => setSelectedTopic(active ? 'all' : t)}
+                            className={cn(
+                                'inline-flex items-center gap-2 rounded-full border px-3 py-1 transition-colors duration-200',
+                                active
+                                    ? cn(TOPICS[t].border, 'bg-white dark:bg-neutral-800')
+                                    : 'border-neutral-200 hover:border-neutral-300'
+                            )}
+                        >
+                            <TopicMark topic={t} />
+                            <span className="font-mono text-xs text-neutral-500 tabular-nums">{topicCounts[t]}</span>
+                        </button>
+                    );
+                })}
             </div>
 
             {/* Search and Filter Controls */}
@@ -204,12 +238,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.25, delay: 0.03 * index }}
-                            className="group border-t fine-divider py-6 transition-colors duration-200 first:border-t-0 hover:border-accent/40"
+                            className="group border-t fine-divider py-7 first:border-t-0"
                         >
                             <div className="flex flex-col md:flex-row gap-5">
                                 {pub.preview && (
                                     <div className="w-full md:w-44 flex-shrink-0">
-                                        <div className="scan-panel aspect-video md:aspect-[4/3] relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800 ring-1 ring-neutral-200 dark:ring-neutral-800 transition-shadow duration-200 group-hover:shadow-md">
+                                        <div className={cn('aspect-video md:aspect-[4/3] relative rounded-sm overflow-hidden bg-white dark:bg-neutral-800 border border-neutral-200 border-t-2', TOPICS[pub.topic].border)}>
                                             <img
                                                 src={pub.preview}
                                                 alt={pub.title}
@@ -220,7 +254,8 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </div>
                                 )}
                                 <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-snug`}>
+                                    <TopicMark topic={pub.topic} className="mb-2" />
+                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-snug transition-colors duration-200 group-hover:text-accent`}>
                                         {pub.title}
                                     </h3>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
@@ -243,12 +278,12 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     {(pub.conference || pub.journal || pub.keywords?.length || pub.tags?.length) && (
                                         <div className="mb-3 flex flex-wrap gap-1.5">
                                             {(pub.conference || pub.journal) && (
-                                                <span className="rounded-full bg-iris-soft px-2.5 py-1 text-xs font-medium text-iris">
+                                                <span className="rounded-full border border-neutral-300 px-2.5 py-0.5 text-xs font-medium text-neutral-600">
                                                     {pub.conference || pub.journal}
                                                 </span>
                                             )}
                                             {(pub.keywords ?? pub.tags ?? []).slice(0, 3).map((tag) => (
-                                                <span key={tag} className="rounded-full border border-neutral-200 dark:border-neutral-800 px-2.5 py-1 text-xs text-neutral-500 dark:text-neutral-400">
+                                                <span key={tag} className="rounded-full border border-neutral-200 px-2.5 py-0.5 text-xs text-neutral-500">
                                                     {tag}
                                                 </span>
                                             ))}

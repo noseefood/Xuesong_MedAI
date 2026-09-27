@@ -1,3 +1,4 @@
+import { resolveTopic } from './topics';
 import { Publication, PublicationType, ResearchArea } from '@/types/publication';
 import { getConfig } from './config';
 
@@ -78,6 +79,7 @@ export function parseBibTeX(bibtexContent: string): Publication[] {
       tags: keywords,
       keywords,
       researchArea: detectResearchArea(tags.title, keywords),
+      topic: resolveTopic(tags.theme, tags.title || '', keywords),
 
       // Optional fields
       journal: cleanBibTeXString(tags.journal),
@@ -94,7 +96,7 @@ export function parseBibTeX(bibtexContent: string): Publication[] {
       preview,
 
       // Store original BibTeX (excluding custom fields)
-      bibtex: reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code']),
+      bibtex: reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code', 'theme']),
     };
 
     // Clean up undefined fields

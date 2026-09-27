@@ -133,7 +133,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             prefetch={true}
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             className={cn(
-                              'relative px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg hover:bg-accent-soft',
+                              'relative px-3 py-2 text-sm font-medium transition-colors duration-200',
                               isActive
                                 ? 'text-accent'
                                 : 'text-neutral-600 hover:text-accent'
@@ -143,7 +143,7 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             {isActive && (
                               <motion.div
                                 layoutId="activeTab"
-                                className="absolute inset-0 bg-accent-soft rounded-lg"
+                                className="absolute inset-x-3 bottom-0.5 h-px bg-accent"
                                 initial={false}
                                 transition={{
                                   type: 'spring',

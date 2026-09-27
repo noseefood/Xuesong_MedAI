@@ -3,9 +3,9 @@ import { Activity, Bot, ScanSearch } from 'lucide-react';
 export default function ResearchStatement() {
   // One hue per capability, as in the deck: ultrasound = blue, learning = purple, robotics = gold.
   const items = [
-    { label: 'Robotics', icon: Bot, tone: 'border-gold/30 bg-gold-soft text-gold' },
-    { label: 'Ultrasound', icon: ScanSearch, tone: 'border-accent/30 bg-accent-soft text-accent' },
-    { label: 'Learning', icon: Activity, tone: 'border-iris/30 bg-iris-soft text-iris' },
+    { label: 'Robotics', icon: Bot, tone: 'text-gold' },
+    { label: 'Ultrasound', icon: ScanSearch, tone: 'text-accent' },
+    { label: 'Learning', icon: Activity, tone: 'text-iris' },
   ];
 
   return (
@@ -28,9 +28,9 @@ export default function ResearchStatement() {
           {items.map(({ label, icon: Icon, tone }) => (
             <span
               key={label}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${tone}`}
+              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-xs font-medium text-neutral-700 dark:bg-transparent"
             >
-              <Icon className="h-3.5 w-3.5" />
+              <Icon className={`h-3.5 w-3.5 ${tone}`} />
               {label}
             </span>
           ))}

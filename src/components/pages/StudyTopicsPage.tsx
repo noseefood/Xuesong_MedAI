@@ -153,7 +153,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                       <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary leading-snug')}>
                         {e.title}
                       </h3>
-                      <span className="font-mono text-xs text-accent border border-accent/25 bg-accent-soft px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums">
+                      <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums">
                         {formatDate(e.updatedAt)}
                       </span>
                     </div>

@@ -22,10 +22,15 @@
   --accent-dark: #073776;
   --accent-soft: #eaf3fb;
 
+  /* Marker values: squares, rules and dots that carry a hue at small size */
+  --accent-marker: #4d92ce;
+  --iris-marker: #8a6fe0;
+  --gold-marker: #e8ae34;
+
   /* Purple: categories, tags, secondary marks */
-  --iris: #4b52c8;
-  --iris-light: #7c8af0;
-  --iris-soft: #ecedff;
+  --iris: #5a45b0;
+  --iris-light: #8a6fe0;
+  --iris-soft: #f1edfc;
 
   /* Gold: the author's own name and personal highlights */
   --gold: #96680c;
@@ -33,8 +38,8 @@
   --gold-soft: #fdf1d8;
 
   /* Transition bands between the three hues */
-  --band: linear-gradient(90deg, #1d4d88 0%, #4d92ce 30%, #7c8af0 62%, #e8ae34 100%);
-  --band-soft: linear-gradient(90deg, rgba(77, 146, 206, 0.55), rgba(124, 138, 240, 0.45), rgba(232, 174, 52, 0.4));
+  --band: linear-gradient(90deg, #1d4d88 0%, #4d92ce 30%, #8a6fe0 62%, #e8ae34 100%);
+  --band-soft: linear-gradient(90deg, rgba(77, 146, 206, 0.55), rgba(138, 111, 224, 0.45), rgba(232, 174, 52, 0.4));
 
   /* Neutral colors: cool ink scale */
   --neutral-50: #f4f7fb;
@@ -71,6 +76,9 @@
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-marker: var(--accent-marker);
+  --color-iris-marker: var(--iris-marker);
+  --color-gold-marker: var(--gold-marker);
   --color-iris: var(--iris);
   --color-iris-light: var(--iris-light);
   --color-iris-soft: var(--iris-soft);
@@ -167,16 +175,20 @@
   --accent-dark: #6ba7da;
   --accent-soft: rgba(77, 146, 206, 0.16);
 
-  --iris: #a6b2ff;
-  --iris-light: #8c9bff;
-  --iris-soft: rgba(140, 155, 255, 0.16);
+  --accent-marker: #5aa2e0;
+  --iris-marker: #a18cf2;
+  --gold-marker: #f5b942;
+
+  --iris: #bba9ff;
+  --iris-light: #a18cf2;
+  --iris-soft: rgba(161, 140, 242, 0.16);
 
   --gold: #f5b942;
   --gold-light: #f5b942;
   --gold-soft: rgba(245, 185, 66, 0.14);
 
-  --band: linear-gradient(90deg, #4d92ce 0%, #6ba7da 28%, #8c9bff 62%, #f5b942 100%);
-  --band-soft: linear-gradient(90deg, rgba(107, 167, 218, 0.5), rgba(140, 155, 255, 0.42), rgba(245, 185, 66, 0.38));
+  --band: linear-gradient(90deg, #4d92ce 0%, #6ba7da 28%, #a18cf2 62%, #f5b942 100%);
+  --band-soft: linear-gradient(90deg, rgba(107, 167, 218, 0.5), rgba(161, 140, 242, 0.42), rgba(245, 185, 66, 0.38));
 
   /* Dark mode glass effect */
   --glass-bg: rgba(11, 21, 38, 0.8);
@@ -198,11 +210,7 @@
 
 
 body {
-  background:
-    linear-gradient(90deg, rgba(29, 77, 136, 0.028) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(29, 77, 136, 0.022) 1px, transparent 1px),
-    var(--background);
-  background-size: 48px 48px, 48px 48px, auto;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   line-height: var(--line-height-normal);
@@ -212,11 +220,7 @@ body {
 }
 
 .dark body {
-  background:
-    linear-gradient(90deg, rgba(142, 192, 234, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(142, 192, 234, 0.025) 1px, transparent 1px),
-    var(--background);
-  background-size: 48px 48px, 48px 48px, auto;
+  background: var(--background);
 }
 
 /* Typography utilities */
@@ -236,20 +240,9 @@ body {
   overflow: hidden;
 }
 
+/* Scan lines retired for a quieter page; the class keeps its layout role. */
 .scan-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(29, 77, 136, 0.07) 0,
-      rgba(29, 77, 136, 0.07) 1px,
-      transparent 1px,
-      transparent 7px
-    );
-  opacity: 0.45;
+  content: none;
 }
 
 .scan-panel > * {
@@ -309,6 +302,13 @@ body {
   height: 1px;
   background: var(--band-soft);
 }
+}
+
+/* Section heading rule: a short band segment, then a soft hairline (deck title rule) */
+.section-rule {
+  background:
+    linear-gradient(var(--accent-marker), var(--accent-marker)) left bottom / 2.5rem 1px no-repeat,
+    linear-gradient(var(--neutral-200), var(--neutral-200)) left bottom / 100% 1px no-repeat;
 }
 
 /* Mono eyebrow: small caps coordinates, as in the deck */

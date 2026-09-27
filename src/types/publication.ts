@@ -44,6 +44,7 @@ export interface Publication {
   preview?: string;
   summary?: string;
   researchArea: ResearchArea;
+  topic: import('@/lib/topics').Topic;
   description?: string;
 }
 

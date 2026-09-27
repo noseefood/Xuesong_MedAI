@@ -25,7 +25,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
                             {item.date && (
-                                <span className="font-mono text-xs text-accent border border-accent/25 bg-accent-soft px-2 py-0.5 rounded-full tabular-nums">
+                                <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full tabular-nums">
                                     {item.date}
                                 </span>
                             )}
