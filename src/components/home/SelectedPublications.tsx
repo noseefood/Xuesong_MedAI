@@ -22,7 +22,7 @@ export default function SelectedPublications({ publications, title = 'Selected P
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}
                     prefetch={true}
-                    className="text-accent hover:text-accent-dark text-sm font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm"
+                    className="text-accent hover:text-accent-dark text-sm font-medium transition-colors duration-200 rounded px-1 -mx-1 hover:bg-accent-soft"
                 >
                     View All →
                 </Link>
@@ -34,25 +34,26 @@ export default function SelectedPublications({ publications, title = 'Selected P
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+                        className="group relative overflow-hidden bg-white dark:bg-neutral-800 p-4 pt-5 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-200 hover:border-accent/35 hover:shadow-md transition-[box-shadow,border-color] duration-200"
                     >
+                        <span className="band absolute inset-x-0 top-0 h-[3px] opacity-70 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true" />
                         <h3 className="font-semibold text-primary mb-2 leading-tight">
                             {pub.title}
                         </h3>
                         <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">
                             {pub.authors.map((author, idx) => (
                                 <span key={idx}>
-                                    <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>
+                                    <span className={`${author.isHighlighted ? 'font-semibold text-gold' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-gold' : 'decoration-neutral-400'}` : ''}`}>
                                         {author.name}
                                     </span>
                                     {author.isCorresponding && (
-                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-500'}`}>†</sup>
+                                        <sup className={`ml-0 ${author.isHighlighted ? 'text-gold' : 'text-neutral-600 dark:text-neutral-500'}`}>†</sup>
                                     )}
                                     {idx < pub.authors.length - 1 && ', '}
                                 </span>
                             ))}
                         </p>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-2">
+                        <p className="text-sm text-iris mb-2">
                             {pub.journal || pub.conference}
                         </p>
                         {pub.description && (

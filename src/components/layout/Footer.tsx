@@ -6,11 +6,12 @@ interface FooterProps {
 
 export default function Footer({ lastUpdated }: FooterProps) {
   return (
-    <footer className="border-t border-neutral-200/50 bg-neutral-50/50 dark:bg-neutral-900/50 dark:border-neutral-700/50">
+    <footer className="bg-neutral-50/60 dark:bg-neutral-900/50">
+      <div className="band-rule" aria-hidden="true" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="mb-5 flex justify-center">
           <div className="scan-panel rounded-lg border fine-divider bg-white/70 p-3 dark:bg-neutral-900/60">
-            <p className="mb-2 text-center text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400">
+            <p className="eyebrow mb-2 text-center text-neutral-500">
               Site Footprint
             </p>
             <a

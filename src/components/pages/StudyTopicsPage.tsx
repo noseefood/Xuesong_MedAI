@@ -71,7 +71,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search study notes..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-primary placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:focus:ring-neutral-700"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-primary placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-accent-light/60 focus:border-accent-light"
           />
         </div>
         {topics.length > 0 && (
@@ -111,7 +111,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
         {!embedded && (
           <aside className="mb-6 hidden lg:block">
             <div className="scan-panel sticky top-24 rounded-lg border fine-divider bg-white/70 px-4 py-4 dark:bg-neutral-900/60">
-              <p className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400">Notebook</p>
+              <p className="eyebrow text-accent">Notebook</p>
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-500">{entries.length} notes</p>
               <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-500">{filtered.length} shown</p>
               {entries[0]?.updatedAt && (
@@ -153,7 +153,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                       <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary leading-snug')}>
                         {e.title}
                       </h3>
-                      <span className="text-xs text-neutral-500 font-medium border border-neutral-200 dark:border-neutral-800 px-2 py-1 rounded-full whitespace-nowrap">
+                      <span className="font-mono text-xs text-accent border border-accent/25 bg-accent-soft px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums">
                         {formatDate(e.updatedAt)}
                       </span>
                     </div>

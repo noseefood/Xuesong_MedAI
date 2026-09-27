@@ -66,18 +66,18 @@ export default function PublicationsList({ config, publications, embedded = fals
         >
             <PageHeader title={config.title} description={config.description} embedded={embedded} />
 
-            <div className="scan-panel mb-6 grid grid-cols-3 overflow-hidden rounded-lg border fine-divider bg-white/70 dark:bg-neutral-900/60">
+            <div className="academic-panel scan-panel mb-6 grid grid-cols-3 overflow-hidden rounded-lg">
                 <div className="px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-primary">{publications.length}</p>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Publications</p>
+                    <p className="text-2xl font-serif font-bold text-accent">{publications.length}</p>
+                    <p className="eyebrow mt-0.5 text-neutral-500">Publications</p>
                 </div>
                 <div className="border-l fine-divider px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-primary">{publications.filter((p) => p.selected).length}</p>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Selected</p>
+                    <p className="text-2xl font-serif font-bold text-iris">{publications.filter((p) => p.selected).length}</p>
+                    <p className="eyebrow mt-0.5 text-neutral-500">Selected</p>
                 </div>
                 <div className="border-l fine-divider px-4 py-3">
-                    <p className="text-2xl font-serif font-bold text-primary">{years[0] ?? '-'}</p>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400">Latest year</p>
+                    <p className="text-2xl font-serif font-bold text-gold">{years[0] ?? '-'}</p>
+                    <p className="eyebrow mt-0.5 text-neutral-500">Latest year</p>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             placeholder="Search publications..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent-light/60 focus:border-accent-light transition-all duration-200"
                         />
                     </div>
                     <button
@@ -120,7 +120,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             <div className="p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
                                 {/* Year Filter */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
+                                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-600 flex items-center">
                                         <CalendarIcon className="h-4 w-4 mr-1" /> Year
                                     </label>
                                     <div className="flex flex-wrap gap-2">
@@ -154,7 +154,7 @@ export default function PublicationsList({ config, publications, embedded = fals
 
                                 {/* Type Filter */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
+                                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-600 flex items-center">
                                         <BookOpenIcon className="h-4 w-4 mr-1" /> Type
                                     </label>
                                     <div className="flex flex-wrap gap-2">
@@ -226,11 +226,11 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
-                                                <span className={`${author.isHighlighted ? 'font-semibold text-accent' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-accent' : 'decoration-neutral-400'}` : ''}`}>
+                                                <span className={`${author.isHighlighted ? 'font-semibold text-gold' : ''} ${author.isCoAuthor ? `underline underline-offset-4 ${author.isHighlighted ? 'decoration-gold' : 'decoration-neutral-400'}` : ''}`}>
                                                     {author.name}
                                                 </span>
                                                 {author.isCorresponding && (
-                                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-400'}`}>†</sup>
+                                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-gold' : 'text-neutral-600 dark:text-neutral-400'}`}>†</sup>
                                                 )}
                                                 {idx < pub.authors.length - 1 && ', '}
                                             </span>
@@ -243,7 +243,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     {(pub.conference || pub.journal || pub.keywords?.length || pub.tags?.length) && (
                                         <div className="mb-3 flex flex-wrap gap-1.5">
                                             {(pub.conference || pub.journal) && (
-                                                <span className="rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+                                                <span className="rounded-full bg-iris-soft px-2.5 py-1 text-xs font-medium text-iris">
                                                     {pub.conference || pub.journal}
                                                 </span>
                                             )}

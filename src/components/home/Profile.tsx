@@ -111,7 +111,7 @@ export default function Profile({ author, social, features, researchInterests }:
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="sticky top-8"
+            className="lg:sticky lg:top-28"
         >
             {/* Profile Image */}
             <div className="w-28 h-28 sm:w-56 sm:h-56 mx-auto mb-5 sm:mb-6 rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 shadow-sm transition-shadow duration-200 hover:shadow-md">
@@ -138,7 +138,7 @@ export default function Profile({ author, social, features, researchInterests }:
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-primary mb-1">
                     {author.name}
                 </h1>
-                <p className="text-base text-accent font-medium mb-1">
+                <p className="text-base text-gold font-medium mb-1">
                     {author.title}
                 </p>
                 <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-2">
@@ -184,7 +184,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                             initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                             animate={{ opacity: 1, y: -10, scale: 1 }}
                                             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'address' ? 'z-20' : 'z-10'
+                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-[#0a2740] dark:bg-[#1d3557] text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg ring-1 ring-white/10 max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'address' ? 'z-20' : 'z-10'
                                                 }`}
                                             onMouseEnter={() => {
                                                 if (!isAddressPinned) setShowAddress(true);
@@ -211,7 +211,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                             href={social.location_url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
+                                                            className="inline-flex items-center justify-center space-x-2 bg-gold-light hover:bg-[#f5b942] text-[#0a2740] px-3 py-1 rounded-md text-xs font-semibold transition-colors duration-200 w-full sm:w-auto"
                                                         >
                                                             <MapPinIcon className="h-4 w-4" />
                                                             <span>Google Map</span>
@@ -220,7 +220,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                 </div>
 
                                             </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
+                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#0a2740] dark:border-t-[#1d3557]"></div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -261,7 +261,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                             initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                             animate={{ opacity: 1, y: -10, scale: 1 }}
                                             exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'email' ? 'z-20' : 'z-10'
+                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-[#0a2740] dark:bg-[#1d3557] text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg ring-1 ring-white/10 max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'email' ? 'z-20' : 'z-10'
                                                 }`}
                                             onMouseEnter={() => {
                                                 if (!isEmailPinned) setShowEmail(true);
@@ -283,7 +283,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                 <div className="mt-2">
                                                     <a
                                                         href={link.href}
-                                                        className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
+                                                        className="inline-flex items-center justify-center space-x-2 bg-gold-light hover:bg-[#f5b942] text-[#0a2740] px-3 py-1 rounded-md text-xs font-semibold transition-colors duration-200 w-full sm:w-auto"
                                                     >
                                                         <EnvelopeIcon className="h-4 w-4" />
                                                         <span className="sm:hidden">Send</span>
@@ -291,7 +291,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
+                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#0a2740] dark:border-t-[#1d3557]"></div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -316,12 +316,16 @@ export default function Profile({ author, social, features, researchInterests }:
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
                 <div className="border-t fine-divider pt-5 mb-6">
-                    <h3 className="text-xs font-semibold uppercase text-neutral-500 dark:text-neutral-400 mb-3">Research Interests</h3>
+                    <h3 className="eyebrow text-neutral-500 mb-3">Research Interests</h3>
                     <div className="flex flex-wrap gap-2">
                         {researchInterests.map((interest, index) => (
                             <span
                                 key={index}
-                                className="rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-400"
+                                className={`rounded-full border px-3 py-1 text-xs font-medium ${[
+                                    'border-iris/25 bg-iris-soft text-iris',
+                                    'border-accent/25 bg-accent-soft text-accent',
+                                    'border-gold/25 bg-gold-soft text-gold',
+                                ][index % 3]}`}
                             >
                                 {interest}
                             </span>
@@ -339,8 +343,8 @@ export default function Profile({ author, social, features, researchInterests }:
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className={`flex items-center space-x-2 px-3 py-1.5 rounded-full border font-medium text-sm transition-all duration-200 ${hasLiked
-                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/40'
-                                : 'border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-red-200 dark:hover:border-red-900/40 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
+                                ? 'bg-gold-soft text-gold border-gold/40'
+                                : 'border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-gold/40 hover:text-gold cursor-pointer'
                                 }`}
                         >
                             {hasLiked ? (
@@ -358,10 +362,10 @@ export default function Profile({ author, social, features, researchInterests }:
                                     initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                     animate={{ opacity: 1, y: -10, scale: 1 }}
                                     exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-accent text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg whitespace-nowrap"
+                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-gold-light text-[#0a2740] px-4 py-2 rounded-lg text-sm font-medium shadow-lg whitespace-nowrap"
                                 >
                                     Thanks! 😊
-                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-accent"></div>
+                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gold-light"></div>
                                 </motion.div>
                             )}
                         </AnimatePresence>

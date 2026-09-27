@@ -89,10 +89,12 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
             className={cn(
               'transition-all duration-300 ease-out',
               scrolled
-                ? 'bg-background/80 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg'
+                ? 'bg-background/85 backdrop-blur-xl border-b border-neutral-200/70 shadow-[0_8px_24px_-16px_rgba(10,39,64,0.35)]'
                 : 'bg-transparent'
             )}
           >
+            {/* Transition band on the top edge: blue -> purple -> gold */}
+            <div className="band h-[3px]" aria-hidden="true" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 lg:h-20">
                 {/* Logo/Name */}
@@ -131,17 +133,17 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             prefetch={true}
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             className={cn(
-                              'relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm',
+                              'relative px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg hover:bg-accent-soft',
                               isActive
-                                ? 'text-primary'
-                                : 'text-neutral-600 hover:text-primary'
+                                ? 'text-accent'
+                                : 'text-neutral-600 hover:text-accent'
                             )}
                           >
                             <span className="relative z-10">{item.title}</span>
                             {isActive && (
                               <motion.div
                                 layoutId="activeTab"
-                                className="absolute inset-0 bg-accent/10 rounded-lg"
+                                className="absolute inset-0 bg-accent-soft rounded-lg"
                                 initial={false}
                                 transition={{
                                   type: 'spring',
@@ -217,8 +219,8 @@ export default function Navigation({ items, siteTitle, enableOnePageMode }: Navi
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary bg-accent/10 border-l-4 border-accent'
-                                : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
+                                ? 'text-accent bg-accent-soft border-l-4 border-accent'
+                                : 'text-neutral-600 hover:text-accent hover:bg-neutral-50'
                             )}
                           >
                             {item.title}

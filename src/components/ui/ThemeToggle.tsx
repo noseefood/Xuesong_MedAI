@@ -154,7 +154,7 @@ export function ThemeToggleDropdown() {
                   'transition-colors duration-200',
                   theme === themeOption.value
                     ? 'text-accent bg-accent/10'
-                    : 'text-neutral-700 dark:text-neutral-300'
+                    : 'text-neutral-700 dark:text-neutral-600'
                 )}
               >
                 <span className="mr-2">{themeOption.icon}</span>

@@ -6,36 +6,54 @@
 /* Default to light theme colors - no system preference detection */
 :root,
 .light {
-  /* Light theme colors */
-  --background: #fefffe;
-  --foreground: #0f172a;
-  
-  /* Brand colors - Deep Navy & Gold */
-  --primary: #1e293b;
-  --primary-light: #334155;
-  --primary-dark: #0f172a;
-  --accent: #d4a562;
-  --accent-light: #e4b976;
-  --accent-dark: #b8914d;
-  
-  /* Neutral colors */
-  --neutral-50: #f8fafc;
-  --neutral-100: #f1f5f9;
-  --neutral-200: #e2e8f0;
-  --neutral-300: #cbd5e1;
-  --neutral-400: #94a3b8;
-  --neutral-500: #64748b;
-  --neutral-600: #475569;
-  --neutral-700: #334155;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
-  
+  /* Palette: TUM CAMP deck system — institutional blue, cognition purple, action gold.
+     Blue carries structure and interaction, purple categories, gold personal highlights. */
+  --background: #ffffff;
+  --foreground: #1a2230;
+
+  /* Headings: deep navy ink */
+  --primary: #0a2740;
+  --primary-light: #1d4d88;
+  --primary-dark: #052a5c;
+
+  /* Blue: links, active states, focus */
+  --accent: #1d4d88;
+  --accent-light: #4d92ce;
+  --accent-dark: #073776;
+  --accent-soft: #eaf3fb;
+
+  /* Purple: categories, tags, secondary marks */
+  --iris: #4b52c8;
+  --iris-light: #7c8af0;
+  --iris-soft: #ecedff;
+
+  /* Gold: the author's own name and personal highlights */
+  --gold: #96680c;
+  --gold-light: #e8ae34;
+  --gold-soft: #fdf1d8;
+
+  /* Transition bands between the three hues */
+  --band: linear-gradient(90deg, #1d4d88 0%, #4d92ce 30%, #7c8af0 62%, #e8ae34 100%);
+  --band-soft: linear-gradient(90deg, rgba(77, 146, 206, 0.55), rgba(124, 138, 240, 0.45), rgba(232, 174, 52, 0.4));
+
+  /* Neutral colors: cool ink scale */
+  --neutral-50: #f4f7fb;
+  --neutral-100: #eef2f7;
+  --neutral-200: #dfe4ea;
+  --neutral-300: #c3cad2;
+  --neutral-400: #8a95a3;
+  --neutral-500: #5d6a79;
+  --neutral-600: #3c4855;
+  --neutral-700: #1e2a35;
+  --neutral-800: #1a2230;
+  --neutral-900: #14171f;
+
   /* Semantic colors */
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
-  --info: #3b82f6;
-  
+  --info: #4d92ce;
+
   /* Glass effect */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -52,6 +70,13 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-accent-soft: var(--accent-soft);
+  --color-iris: var(--iris);
+  --color-iris-light: var(--iris-light);
+  --color-iris-soft: var(--iris-soft);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-soft: var(--gold-soft);
   
   /* Neutral palette */
   --color-neutral-50: var(--neutral-50);
@@ -79,7 +104,7 @@
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Crimson Text', Georgia, serif;
-  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   
   /* Font sizes */
   --font-size-xs: 0.75rem;
@@ -128,42 +153,54 @@
   --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 }
 
-/* Dark mode styles */
+/* Dark mode styles: navy ground, each hue lifted so contrast holds */
 .dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  
-  /* Adjust colors for dark mode */
-  --primary: #f8fafc;
-  --primary-light: #e2e8f0;
-  --primary-dark: #cbd5e1;
-  --accent: #e4b976;
-  --accent-light: #f0c674;
-  --accent-dark: #d4a562;
-  
+  --background: #0b1526;
+  --foreground: #e6ecf3;
+
+  --primary: #f4f7fb;
+  --primary-light: #dfe6ef;
+  --primary-dark: #c3cad2;
+
+  --accent: #8ec0ea;
+  --accent-light: #bbd5ec;
+  --accent-dark: #6ba7da;
+  --accent-soft: rgba(77, 146, 206, 0.16);
+
+  --iris: #a6b2ff;
+  --iris-light: #8c9bff;
+  --iris-soft: rgba(140, 155, 255, 0.16);
+
+  --gold: #f5b942;
+  --gold-light: #f5b942;
+  --gold-soft: rgba(245, 185, 66, 0.14);
+
+  --band: linear-gradient(90deg, #4d92ce 0%, #6ba7da 28%, #8c9bff 62%, #f5b942 100%);
+  --band-soft: linear-gradient(90deg, rgba(107, 167, 218, 0.5), rgba(140, 155, 255, 0.42), rgba(245, 185, 66, 0.38));
+
   /* Dark mode glass effect */
-  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-bg: rgba(11, 21, 38, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.5);
-  
-  /* Neutral colors for dark mode - properly inverted */
-  --neutral-50: #0f172a;
-  --neutral-100: #1e293b;
-  --neutral-200: #334155;
-  --neutral-300: #475569;
-  --neutral-400: #64748b;
-  --neutral-500: #94a3b8;
-  --neutral-600: #cbd5e1;
+
+  /* Neutrals: 50-700 inverted for text, 800/900 stay dark surfaces */
+  --neutral-50: #0e1a2e;
+  --neutral-100: #14233b;
+  --neutral-200: #22344f;
+  --neutral-300: #3a4d69;
+  --neutral-400: #6f8098;
+  --neutral-500: #9aa8bb;
+  --neutral-600: #c7d0dc;
   --neutral-700: #e2e8f0;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
+  --neutral-800: #14233b;
+  --neutral-900: #0b1526;
 }
 
 
 body {
   background:
-    linear-gradient(90deg, rgba(30, 41, 59, 0.025) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(30, 41, 59, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 77, 136, 0.028) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(29, 77, 136, 0.022) 1px, transparent 1px),
     var(--background);
   background-size: 48px 48px, 48px 48px, auto;
   color: var(--foreground);
@@ -176,8 +213,8 @@ body {
 
 .dark body {
   background:
-    linear-gradient(90deg, rgba(226, 232, 240, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(226, 232, 240, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 192, 234, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(142, 192, 234, 0.025) 1px, transparent 1px),
     var(--background);
   background-size: 48px 48px, 48px 48px, auto;
 }
@@ -191,6 +228,9 @@ body {
   text-wrap: pretty;
 }
 
+/* Custom panels live in the components layer so Tailwind utilities
+   (e.g. `sticky`) can still override them. */
+@layer components {
 .scan-panel {
   position: relative;
   overflow: hidden;
@@ -204,8 +244,8 @@ body {
   background:
     repeating-linear-gradient(
       to bottom,
-      rgba(45, 120, 173, 0.08) 0,
-      rgba(45, 120, 173, 0.08) 1px,
+      rgba(29, 77, 136, 0.07) 0,
+      rgba(29, 77, 136, 0.07) 1px,
       transparent 1px,
       transparent 7px
     );
@@ -217,18 +257,18 @@ body {
 }
 
 .fine-divider {
-  border-color: color-mix(in srgb, var(--neutral-200) 72%, var(--accent) 28%);
+  border-color: color-mix(in srgb, var(--neutral-200) 82%, var(--accent) 18%);
 }
 
 .dark .fine-divider {
-  border-color: color-mix(in srgb, var(--neutral-800) 72%, var(--accent) 28%);
+  border-color: color-mix(in srgb, var(--neutral-200) 80%, var(--accent) 20%);
 }
 
 .academic-panel {
   position: relative;
-  border: 1px solid color-mix(in srgb, var(--neutral-200) 76%, var(--accent) 24%);
+  border: 1px solid color-mix(in srgb, var(--neutral-200) 80%, var(--accent) 20%);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 250, 252, 0.72));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 247, 251, 0.8));
 }
 
 .academic-panel::after {
@@ -237,15 +277,60 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), rgba(45, 120, 173, 0.45), transparent);
+  height: 3px;
+  background: var(--band);
   pointer-events: none;
 }
 
 .dark .academic-panel {
-  border-color: color-mix(in srgb, var(--neutral-800) 76%, var(--accent) 24%);
+  border-color: color-mix(in srgb, var(--neutral-200) 80%, var(--accent) 20%);
   background:
-    linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(30, 41, 59, 0.56));
+    linear-gradient(180deg, rgba(20, 35, 59, 0.82), rgba(14, 26, 46, 0.7));
+}
+
+/* ---- Transition bands (blue -> purple -> gold) ---- */
+
+/* A thin full band, e.g. the top edge of the page or a card cap */
+.band {
+  background: var(--band);
+}
+
+/* A short band used as the dash in front of an eyebrow label */
+.band-dash {
+  display: inline-block;
+  width: 2rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--band);
+}
+
+/* Soft band hairline for section borders */
+.band-rule {
+  height: 1px;
+  background: var(--band-soft);
+}
+}
+
+/* Mono eyebrow: small caps coordinates, as in the deck */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--iris-light) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
 }
 
 /* Glass morphism utilities */
@@ -304,7 +389,7 @@ body {
 }
 
 .dark .card-bg {
-  background-color: #1e293b;
+  background-color: #14233b;
   /* Soften card borders in dark mode only */
   border-color: rgba(148, 163, 184, 0.24);
 }

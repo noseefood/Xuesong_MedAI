@@ -12,8 +12,8 @@ export default function PageHeader({ title, description, embedded = false, note,
   return (
     <div className={cn(embedded ? 'mb-5' : 'mb-8', className)}>
       <div className="mb-3 flex items-center gap-3">
-        <span className="h-px w-8 bg-accent" />
-        <span className="text-[11px] font-semibold uppercase text-neutral-500 dark:text-neutral-400">
+        <span className="band-dash" aria-hidden="true" />
+        <span className="eyebrow text-accent">
           Research Archive
         </span>
       </div>
