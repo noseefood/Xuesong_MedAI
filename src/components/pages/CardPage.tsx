@@ -23,7 +23,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         className={`border-t border-neutral-200 dark:border-neutral-800 ${embedded ? "py-4" : "py-6"} transition-colors duration-200 first:border-t-0 hover:border-accent/40`}
                     >
                         <div className="flex justify-between items-start mb-2">
-                            <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
+                            <h2 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h2>
                             {item.date && (
                                 <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full tabular-nums">
                                     {item.date}

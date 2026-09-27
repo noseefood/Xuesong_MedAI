@@ -104,7 +104,13 @@ export default function Profile({ author, social, features, researchInterests }:
         }] : []),
     ];
 
-    const [imgSrc, setImgSrc] = useState(author.avatar);  
+    const [imgSrc, setImgSrc] = useState(author.avatar);
+
+    // Warm the hover portrait so the first swap does not flash.
+    useEffect(() => {
+        const img = new window.Image();
+        img.src = "icons/xuesong_icon_US.png";
+    }, []);
 
     return (
         <motion.div
@@ -127,6 +133,8 @@ export default function Profile({ author, social, features, researchInterests }:
                     alt={author.name}
                     width={256}
                     height={256}
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover object-[32%_center]"
                     onMouseEnter={() => setImgSrc("icons/xuesong_icon_US.png")}
                     onMouseLeave={() => setImgSrc(author.avatar)}
@@ -315,9 +323,9 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="border-t fine-divider pt-5 mb-6">
-                    <h3 className="eyebrow text-neutral-500 mb-3">Research Interests</h3>
-                    <div className="flex flex-wrap gap-2">
+                <div className="border-t fine-divider pt-5 mb-6 text-center lg:text-left">
+                    <h2 className="eyebrow text-neutral-500 mb-3">Research Interests</h2>
+                    <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
                         {researchInterests.map((interest, index) => (
                             <span
                                 key={index}

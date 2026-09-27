@@ -82,7 +82,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
               className={cn(
                 'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
                 topic === 'all'
-                  ? 'border-accent bg-accent text-white'
+                  ? 'border-accent bg-accent text-on-accent'
                   : 'border-neutral-200 text-neutral-600 hover:border-accent hover:text-accent dark:border-neutral-800 dark:text-neutral-400'
               )}
             >
@@ -96,7 +96,7 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
                 className={cn(
                   'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
                   topic === item
-                    ? 'border-accent bg-accent text-white'
+                    ? 'border-accent bg-accent text-on-accent'
                     : 'border-neutral-200 text-neutral-600 hover:border-accent hover:text-accent dark:border-neutral-800 dark:text-neutral-400'
                 )}
               >
@@ -150,9 +150,9 @@ export default function StudyTopicsPage({ config, entries, embedded = false }: S
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3">
-                      <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary leading-snug')}>
+                      <h2 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-semibold text-primary leading-snug')}>
                         {e.title}
-                      </h3>
+                      </h2>
                       <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums">
                         {formatDate(e.updatedAt)}
                       </span>

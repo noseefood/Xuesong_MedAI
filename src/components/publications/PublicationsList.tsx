@@ -134,7 +134,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                         className={cn(
                             "flex items-center justify-center px-4 py-2 rounded-lg border transition-all duration-200",
                             showFilters
-                                ? "bg-accent text-white border-accent"
+                                ? "bg-accent text-on-accent border-accent"
                                 : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-600 hover:border-accent hover:text-accent"
                         )}
                     >
@@ -163,7 +163,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             className={cn(
                                                 "px-3 py-1 text-xs rounded-full transition-colors",
                                                 selectedYear === 'all'
-                                                    ? "bg-accent text-white"
+                                                    ? "bg-accent text-on-accent"
                                                     : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                             )}
                                         >
@@ -176,7 +176,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className={cn(
                                                     "px-3 py-1 text-xs rounded-full transition-colors",
                                                     selectedYear === year
-                                                        ? "bg-accent text-white"
+                                                        ? "bg-accent text-on-accent"
                                                         : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                                 )}
                                             >
@@ -197,7 +197,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             className={cn(
                                                 "px-3 py-1 text-xs rounded-full transition-colors",
                                                 selectedType === 'all'
-                                                    ? "bg-accent text-white"
+                                                    ? "bg-accent text-on-accent"
                                                     : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                             )}
                                         >
@@ -210,7 +210,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className={cn(
                                                     "px-3 py-1 text-xs rounded-full capitalize transition-colors",
                                                     selectedType === type
-                                                        ? "bg-accent text-white"
+                                                        ? "bg-accent text-on-accent"
                                                         : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                                                 )}
                                             >
@@ -247,17 +247,20 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             <img
                                                 src={pub.preview}
                                                 alt={pub.title}
+                                                width={720}
+                                                height={540}
                                                 className="object-cover w-full h-full"
-                                                loading="lazy"
+                                                loading={index < 2 ? 'eager' : 'lazy'}
+                                                decoding="async"
                                             />
                                         </div>
                                     </div>
                                 )}
                                 <div className="flex-grow">
                                     <TopicMark topic={pub.topic} className="mb-2" />
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-snug transition-colors duration-200 group-hover:text-accent`}>
+                                    <h2 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-snug transition-colors duration-200 group-hover:text-accent`}>
                                         {pub.title}
-                                    </h3>
+                                    </h2>
                                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
                                         {pub.authors.map((author, idx) => (
                                             <span key={idx}>
@@ -278,7 +281,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     {(pub.conference || pub.journal || pub.keywords?.length || pub.tags?.length) && (
                                         <div className="mb-3 flex flex-wrap gap-1.5">
                                             {(pub.conference || pub.journal) && (
-                                                <span className="rounded-full border border-neutral-300 px-2.5 py-0.5 text-xs font-medium text-neutral-600">
+                                                <span className="rounded-sm border border-neutral-300 px-2 py-0.5 text-xs font-medium text-neutral-600">
                                                     {pub.conference || pub.journal}
                                                 </span>
                                             )}

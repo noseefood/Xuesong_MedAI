@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { resolveTopic } from './topics';
 import { Publication, PublicationType, ResearchArea } from '@/types/publication';
 import { getConfig } from './config';
@@ -63,8 +65,16 @@ export function parseBibTeX(bibtexContent: string): Publication[] {
     // Parse preview field (remove braces if present)
     const previewFilename = tags.preview?.replace(/[{}]/g, '');
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    // A web-sized copy in public/publications-thumbs/<name>.jpg is used when present;
+    // the full-size file in public/publications/ stays the source and the fallback.
+    const thumbFilename = previewFilename ? previewFilename.replace(/\.[^.]+$/, '') + '.jpg' : undefined;
+    const hasThumb = thumbFilename
+      ? fs.existsSync(path.join(process.cwd(), 'public', 'publications-thumbs', thumbFilename))
+      : false;
     const preview = previewFilename
-      ? `${basePath}/publications/${encodeURIComponent(previewFilename)}`.replace(/\/+/g, '/')
+      ? (hasThumb
+        ? `${basePath}/publications-thumbs/${encodeURIComponent(thumbFilename!)}`
+        : `${basePath}/publications/${encodeURIComponent(previewFilename)}`).replace(/\/+/g, '/')
       : undefined;
 
     // Create publication object

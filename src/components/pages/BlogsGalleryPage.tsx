@@ -121,7 +121,7 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                 )}
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <h3 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-serif font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h3>
+                  <h2 className={cn(embedded ? 'text-lg' : 'text-xl', 'font-serif font-semibold text-primary')}>{formatGalleryDate(entry.label)}</h2>
                   <div className="band-rule flex-1" aria-hidden="true" />
                   <span className="font-mono text-xs text-neutral-500 border border-neutral-200 px-2 py-0.5 rounded-full tabular-nums">
                     {entry.images.length} photo{entry.images.length === 1 ? '' : 's'}
@@ -141,13 +141,14 @@ export default function BlogsGalleryPage({ config, entries, embedded = false }: 
                           'group relative overflow-hidden rounded-md border border-neutral-200/70 bg-white text-left shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900/60',
                           isFeature && 'col-span-2 sm:row-span-2'
                         )}
-                        aria-label={`Open image ${img.filename}`}
+                        aria-label={`${img.caption}, open full size`}
                       >
                         <div className="relative aspect-square">
                           <Image
                             src={withBasePath(img.thumbSrc ?? img.src)}
-                            alt={img.caption}
+                            alt=""
                             fill
+                            priority={idx === 0}
                             sizes={isFeature ? '(max-width: 768px) 66vw, (max-width: 1024px) 50vw, 22vw' : '(max-width: 768px) 33vw, (max-width: 1024px) 16vw, 10vw'}
                             className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
                           />

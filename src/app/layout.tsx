@@ -5,6 +5,21 @@ import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { getConfig } from "@/lib/config";
 
+// Site-relative asset paths ("icons/x.ico") must carry the base path, or they
+// resolve against the current page (/study/icons/...) and 404 on subpages.
+function withBase(src: string): string {
+  if (/^(https?:)?\/\//.test(src) || src.startsWith('data:')) return src;
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const clean = src.replace(/^\/+/, '');
+  return `${base}/${clean}`;
+}
+
+function iconType(src: string): string {
+  if (src.endsWith('.svg')) return 'image/svg+xml';
+  if (src.endsWith('.png')) return 'image/png';
+  return 'image/x-icon';
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
   return {
@@ -18,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: config.author.name,
     publisher: config.author.name,
     icons: {
-      icon: config.site.favicon,
+      icon: withBase(config.site.favicon),
     },
     openGraph: {
       type: "website",
@@ -41,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <link rel="icon" href={config.site.favicon} type="image/svg+xml" />
+        <link rel="icon" href={withBase(config.site.favicon)} type={iconType(config.site.favicon)} />
         {/* Speed up font connections */}
         <link rel="dns-prefetch" href="https://google-fonts.jialeliu.com" />
         <link rel="preconnect" href="https://google-fonts.jialeliu.com" crossOrigin="" />
