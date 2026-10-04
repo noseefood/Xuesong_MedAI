@@ -46,7 +46,7 @@ export default function RootLayout({
   const lastUpdated = process.env.NEXT_PUBLIC_LAST_UPDATED || config.site.last_updated;
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth light" data-theme="light" suppressHydrationWarning>
       <head>
         <link rel="icon" href={withBasePath(config.site.favicon)} type={iconType(config.site.favicon)} />
         {/* Speed up font connections */}
@@ -90,14 +90,16 @@ export default function RootLayout({
               try {
                 const theme = localStorage.getItem('theme-storage');
                 const parsed = theme ? JSON.parse(theme) : null;
-                const setting = parsed?.state?.theme || 'system';
+                const setting = parsed?.state?.theme || 'light';
                 const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));
+                const effective = setting === 'dark' || (setting === 'system' && prefersDark) ? 'dark' : 'light';
                 var root = document.documentElement;
+                root.classList.remove('light', 'dark');
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
               } catch (e) {
                 var root = document.documentElement;
+                root.classList.remove('dark');
                 root.classList.add('light');
                 root.setAttribute('data-theme', 'light');
               }

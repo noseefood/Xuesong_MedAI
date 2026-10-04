@@ -17,6 +17,7 @@
 /* Default to light theme colors - no system preference detection */
 :root,
 .light {
+  color-scheme: light;
   /* Palette: TUM CAMP deck system — institutional blue, cognition purple, action gold.
      Blue carries structure and interaction, purple categories, gold personal highlights. */
   --background: #ffffff;
@@ -176,6 +177,7 @@
 
 /* Dark mode styles: navy ground, each hue lifted so contrast holds */
 .dark {
+  color-scheme: dark;
   --background: #0b1526;
   --foreground: #e6ecf3;
 

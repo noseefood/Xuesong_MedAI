@@ -12,16 +12,16 @@ interface ThemeStore {
 export const useThemeStore = create<ThemeStore>()(
   persist(
     (set, get) => ({
-      // Default to system preference
-      theme: 'system',
+      // Start in daylight mode unless the visitor has saved a preference.
+      theme: 'light',
       setTheme: (theme: Theme) => {
         set({ theme });
         updateTheme(theme);
       },
       toggleTheme: () => {
         const current = get().theme;
-        // When in system mode, first toggle explicitly to light
-        const newTheme = current === 'dark' ? 'light' : 'dark';
+        // Toggle from the effective theme, including in system mode.
+        const newTheme = resolveTheme(current) === 'dark' ? 'light' : 'dark';
         set({ theme: newTheme });
         updateTheme(newTheme);
       },
